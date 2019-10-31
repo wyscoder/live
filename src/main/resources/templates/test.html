@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.js"></script>
+    <title>TestAjax</title>
+    <script>
+        window.onload = function () {
+            $('#testAjax').click(function () {
+                $.ajax({
+                    url: "/msg",
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+<button id="testAjax">点击就送</button>
+</body>
+</html>
