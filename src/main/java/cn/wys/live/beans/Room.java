@@ -20,6 +20,7 @@ public class Room {
      */
     private String roomId;
 
+
     public String getRoomName() {
         return roomName;
     }

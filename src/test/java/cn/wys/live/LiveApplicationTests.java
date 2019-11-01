@@ -1,6 +1,6 @@
 package cn.wys.live;
 
-import cn.wys.live.utils.hy.HyLiveSource;
+import cn.wys.live.utils.hy.HyLiveUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,6 +14,6 @@ class LiveApplicationTests {
     }
     @Test
     void testHy() throws IOException {
-        HyLiveSource.getAllAnchor(2336);
+        //HyLiveUtils.getAllAnchor(2336);
     }
 }

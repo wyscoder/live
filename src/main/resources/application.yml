@@ -1,6 +1,8 @@
 #端口
 server:
   port: 8080
+  tomcat:
+    uri-encoding: UTF-8
 
 #数据源配置
 spring:
@@ -12,3 +14,10 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+    encoding: UTF-8
+
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true

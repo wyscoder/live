@@ -1,12 +1,16 @@
 package cn.wys.live.controller;
 
 import cn.wys.live.service.CategoryService;
+import cn.wys.live.utils.hy.HyLiveUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * @author wys
@@ -32,14 +36,18 @@ public class CategoriesController {
      * @param myCategories
      * @return
      */
-    @RequestMapping("/categories/{category}")
-    public String categories(@PathVariable(value = "category") String myCategories, Model model) {
-        String id = String.valueOf(categoryService.selectIdByName(myCategories));
+    @RequestMapping("/categories/{category}/{pageid}")
+    public String categories(@PathVariable(value = "category") String myCategories, @PathVariable(value = "pageid") Integer pageId, Model model) {
+        Integer id = categoryService.selectIdByName(myCategories);
+        System.out.println(pageId);
+        try{
+            model.addAttribute("myCategory", myCategories);
+            model.addAttribute("page", HyLiveUtils.getAllAnchor(id, pageId));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
-        model.addAttribute("myCategoty",myCategories);
-
-
-        System.out.println(id);
         return "categories";
     }
+
 }
