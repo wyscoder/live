@@ -1,11 +1,13 @@
 package cn.wys.live.beans;
 
+import java.io.Serializable;
+
 /**
  * @author wys
  * @date 2019/10/31
  * 房间信息
  */
-public class Room {
+public class Room implements Serializable {
 
     /**
      * 房间名称

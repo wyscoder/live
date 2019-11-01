@@ -1,16 +1,20 @@
 package cn.wys.live.controller;
 
+import cn.wys.live.beans.Page;
+import cn.wys.live.beans.RetCode;
+import cn.wys.live.beans.RetResponse;
+import cn.wys.live.beans.RetResult;
 import cn.wys.live.service.CategoryService;
 import cn.wys.live.utils.hy.HyLiveUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 
+import javax.xml.ws.Response;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 /**
  * @author wys
@@ -36,18 +40,40 @@ public class CategoriesController {
      * @param myCategories
      * @return
      */
-    @RequestMapping("/categories/{category}/{pageid}")
-    public String categories(@PathVariable(value = "category") String myCategories, @PathVariable(value = "pageid") Integer pageId, Model model) {
+    @RequestMapping(value = "/categories/{category}", method = RequestMethod.GET)
+    public String categories(@PathVariable(value = "category") String myCategories, Model model) throws Exception{
         Integer id = categoryService.selectIdByName(myCategories);
-        System.out.println(pageId);
+
         try{
             model.addAttribute("myCategory", myCategories);
-            model.addAttribute("page", HyLiveUtils.getAllAnchor(id, pageId));
+            model.addAttribute("page", HyLiveUtils.getAllAnchor(id, 1));
         }catch (IOException e){
             e.printStackTrace();
         }
 
         return "categories";
+    }
+
+    /**
+     * 这个就是使用ajax处理分页信息的类
+     * @param myCategories
+     * @param pageId
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/categories/{category}", method = RequestMethod.POST)
+    public RetResult<Page> listcategoriesPage(@PathVariable(value = "category") String myCategories, @RequestParam(value = "pageid") Integer pageId, Model model) throws Exception{
+        Integer id = categoryService.selectIdByName(myCategories);
+
+        try{
+
+            return RetResponse.makeOKRsp(HyLiveUtils.getAllAnchor(id, pageId));
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return RetResponse.makeRsp(RetCode.FAIL.code, "FAIL");
     }
 
 }

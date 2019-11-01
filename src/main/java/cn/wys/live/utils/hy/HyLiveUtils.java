@@ -51,7 +51,8 @@ public class HyLiveUtils {
 
         Integer totalPage = Integer.valueOf(JSONObject.parseObject(JSONObject.parseObject(doc.text()).getString("data")).getString("totalPage"));
         Integer totalCount = Integer.valueOf(JSONObject.parseObject(JSONObject.parseObject(doc.text()).getString("data")).getString("totalCount"));
-        //System.out.println(totalPage);
+
+
         List<Room> list = new ArrayList<>();
 
 

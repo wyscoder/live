@@ -1,5 +1,6 @@
 package cn.wys.live.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @author wys
  * @date 2019/11/1
  */
-public class Page {
+public class Page implements Serializable {
 
     /**
      * 总页数

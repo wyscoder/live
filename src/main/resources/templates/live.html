@@ -8,22 +8,121 @@
     <title>直播</title>
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}" />
-    <script type="text/javascript" th:src="@{/js/query-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}" th:inline="javascript"></script>
     <script type="text/javascript" th:src="@{/js/nav.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <link rel="shortcut icon" href="#" />
 </head>
 <body>
-<head th:replace="nav::html" ></head>
-<!--这个就是缩略图
-    后面通过js动态添加
--->
+
+<!--导航条-->
+<ul class="nav nav-pills" >
+    <li role="presentation"><a href="/index">主页</a></li>
+    <li role="presentation" class="active"><a href="/live">直播</a></li>
+    <li role="presentation"><a href="/movie">播放视频</a></li>
+</ul>
+
 <div class="row">
     <div class="col-xs-6 col-md-3">
         <a th:href="@{/categories/王者荣耀}" class="thumbnail">
-            <img th:src="@{/images/GloryofKings.jpg}" alt="王者荣耀">
+            <img th:src="@{/images/2336.jpg}" alt="王者荣耀">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/英雄联盟}" class="thumbnail">
+            <img th:src="@{/images/1.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/一起看}" class="thumbnail">
+            <img th:src="@{/images/2135.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/300英雄}" class="thumbnail">
+            <img th:src="@{/images/1132.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/CS:GO}" class="thumbnail">
+            <img th:src="@{/images/862.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/DOTA2}" class="thumbnail">
+            <img th:src="@{/images/7.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/FF14}" class="thumbnail">
+            <img th:src="@{/images/1111.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/交友}" class="thumbnail">
+            <img th:src="@{/images/4079.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/QQ炫舞}" class="thumbnail">
+            <img th:src="@{/images/2440.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/QQ飞车}" class="thumbnail">
+            <img th:src="@{/images/9.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/二次元}" class="thumbnail">
+            <img th:src="@{/images/2633.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/地下城与勇士}" class="thumbnail">
+            <img th:src="@{/images/2.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/城市：天际线}" class="thumbnail">
+            <img th:src="@{/images/2201.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/怪物猎人世界}" class="thumbnail">
+            <img th:src="@{/images/3519.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/星际战甲}" class="thumbnail">
+            <img th:src="@{/images/627.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/最终幻想系列}" class="thumbnail">
+            <img th:src="@{/images/2454.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/魔兽世界}" class="thumbnail">
+            <img th:src="@{/images/8.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/诛仙3}" class="thumbnail">
+            <img th:src="@{/images/1646.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/穿越火线}" class="thumbnail">
+            <img th:src="@{/images/4.jpg}">
+        </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <a th:href="@{/categories/最新网游}" class="thumbnail">
+            <img th:src="@{/images/100035.jpg}">
         </a>
     </div>
 </div>
-
 </body>
 </html>

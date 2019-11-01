@@ -1,3 +1,21 @@
-td{
-    background-color: #F8F8FF;
+.leftPageMsg{
+    position: relative;
+    bottom: -60px;
+    font-size: 18px;
+}
+#a{
+    position: relative;
+    right: 150px;
+}
+#d{
+    position: relative;
+    right: 56px;
+}
+#b{
+    position:relative;
+    right: 100px;
+}
+#c{
+    position:relative;
+    right: 100px;
 }

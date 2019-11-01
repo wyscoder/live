@@ -3,3 +3,7 @@ body {
     margin: 0 auto;
     background-image: url("/images/snow.jpg");
 }
+image{
+    width: 171px;
+    height: 180px;
+}
