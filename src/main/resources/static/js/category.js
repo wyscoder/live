@@ -33,7 +33,7 @@ function categoryList(topage,mycategory) {
             $('#tableId').append(head);
             for(var i=0;i<rooms.length;i++) {
                 var node = "<tr><td style=\"background-color: #F8F8FF;text-align:center\">"+rooms[i].roomName+"</td><td style=\"background-color: #F8F8FF;text-align:center\">"+rooms[i].roomId+"</td><td style=\"background-color: #F8F8FF;text-align:center\">"+rooms[i].anchorName+"</td><td style=\"background-color: #F8F8FF;text-align:center\">"+
-                    "<a href='#'>播放</a>"
+                    "<a href='/live/"+rooms[i].roomId+"'>播放</a>"
                     +"</td></tr>";
                 $('#tableId').append(node);
             }

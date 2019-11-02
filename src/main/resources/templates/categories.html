@@ -33,7 +33,8 @@
             <td class="text-center" th:text="${room.roomName}" style="background-color: #F8F8FF;"></td>
             <td class="text-center"th:text="${room.roomId}" style="background-color: #F8F8FF;"></td>
             <td class="text-center" th:text="${room.anchorName}" style="background-color: #F8F8FF;"></td>
-            <td class="text-center" style="background-color: #F8F8FF;"><a href="#">播放</a></td>
+            <!--  点击后打开一个新窗口         -->
+            <td class="text-center" style="background-color: #F8F8FF;"><a th:href="@{'/live/'+${room.roomId}}" target="_blank">播放</a></td>
         </tr>
     </span>
 

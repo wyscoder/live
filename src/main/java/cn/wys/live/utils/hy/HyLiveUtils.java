@@ -26,7 +26,7 @@ public class HyLiveUtils {
     private final static String HYHEAD = "http://www.huya.com/cache.php?m=LiveList&do=getLiveListByPage&gameId=";
     private final static String HYTAIL = "&tagAll=0&page=";
 
-    private final static Map<String,String> head = new HashMap<>();
+    public final static Map<String,String> head = new HashMap<>();
 
     /**
      * 获取当前直播分类所有主播房间信息

@@ -5,6 +5,7 @@ import cn.wys.live.beans.RetCode;
 import cn.wys.live.beans.RetResponse;
 import cn.wys.live.beans.RetResult;
 import cn.wys.live.service.CategoryService;
+import cn.wys.live.utils.hy.HyLiveLink;
 import cn.wys.live.utils.hy.HyLiveUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,17 +64,25 @@ public class CategoriesController {
      */
     @ResponseBody
     @RequestMapping(value = "/categories/{category}", method = RequestMethod.POST)
-    public RetResult<Page> listcategoriesPage(@PathVariable(value = "category") String myCategories, @RequestParam(value = "pageid") Integer pageId, Model model) throws Exception{
+    public RetResult<Page> listcategoriesPage(@PathVariable(value = "category") String myCategories, @RequestParam(value = "pageid") Integer pageId, Model model) {
         Integer id = categoryService.selectIdByName(myCategories);
 
         try{
-
             return RetResponse.makeOKRsp(HyLiveUtils.getAllAnchor(id, pageId));
-
         }catch (IOException e){
-            e.printStackTrace();
+            return RetResponse.makeRsp(RetCode.FAIL.code, "FAIL");
         }
-        return RetResponse.makeRsp(RetCode.FAIL.code, "FAIL");
+
     }
 
+    @RequestMapping(value = "/live/{roomid}", method = RequestMethod.GET)
+    public String playLive(@PathVariable(value = "roomid")String roomId, Model model) throws Exception{
+
+
+        String[] ss = HyLiveLink.getLink(roomId);
+        model.addAttribute("title", ss[0]);
+        model.addAttribute("liveLink", ss[1]);
+
+        return "playlive";
+    }
 }

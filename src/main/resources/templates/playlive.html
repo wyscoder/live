@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{https://cdn.bootcss.com/dplayer/1.25.0/DPlayer.min.css}" />
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/nav.js}"></script>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/hls.js/8.0.0-beta.3/hls.min.js}"></script>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/dplayer/1.25.0/DPlayer.min.js}"></script>
+    <link rel="shortcut icon" href="#" />
+</head>
+<body>
+    <!--导航条-->
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/index">主页</a></li>
+        <li role="presentation" class="active"><a href="/live">直播</a></li>
+        <li role="presentation"><a href="/movie">播放视频</a></li>
+    </ul>
+    <div id="dplayer">
+        <script th:inline="javascript">
+            const dp = new DPlayer({
+                container: document.getElementById('dplayer'),
+                autoplay: true,
+                live: true,
+                video: {
+                    url: [[${liveLink}]],
+                    type: 'hls',
+                }
+            });
+        </script>
+    </div>
+
+</body>
+</html>
