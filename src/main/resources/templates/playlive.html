@@ -22,13 +22,21 @@
     </ul>
     <div id="dplayer">
         <script th:inline="javascript">
+            /*var links = [[${liveLink}]];
+            var qualities = [];
+            var data = {};
+            for(var i=0;i<links.length;i++) {
+                data["url"] = links[i];
+                data["type"] = "hls";
+                qualities[i] = data;
+            }*/
             const dp = new DPlayer({
                 container: document.getElementById('dplayer'),
                 autoplay: true,
                 live: true,
                 video: {
-                    url: [[${liveLink}]],
-                    type: 'hls',
+                    quality: [[${liveLink}]],
+                    defaultQuality: 0,
                 }
             });
         </script>

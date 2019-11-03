@@ -22,7 +22,7 @@ public class HyLiveLink {
     /**
      * 获取播放链接
      */
-    public static String[] getLink(String roomId) throws Exception {
+    public static Object[] getLink(String roomId) throws Exception {
         if(HyLiveUtils.head.isEmpty()){
             HyLiveUtils.head.put("accept", HeaderConstant.ACCEPT);
             HyLiveUtils.head.put("accept-encoding", HeaderConstant.ACCEPT_ENCODING);
@@ -53,13 +53,14 @@ public class HyLiveLink {
         }
         JSONObject jsonObject = JSONObject.parseObject(s1.substring(8,s1.length()));
         JSONArray jsonArray = JSONArray.parseArray(jsonObject.getString("gameStreamInfoList"));
+        String[] links = new String[jsonArray.size()];
+        for(int i=0;i<jsonArray.size();i++) {
+            String sHlsUrl = jsonArray.getJSONObject(i).getString("sHlsUrl")+"/";
+            String sStreamName = jsonArray.getJSONObject(i).getString("sStreamName")+".m3u8";
+            links[i] = (sHlsUrl+sStreamName);
+        }
 
-        JSONObject jSONObjectFirst = jsonArray.getJSONObject(jsonArray.size()-1);
-        String sHlsUrl = jSONObjectFirst.getString("sHlsUrl")+"/";
-        String sStreamName = jSONObjectFirst.getString("sStreamName")+".m3u8";
-        //System.out.println(title);
-
-        return new String[]{title,sHlsUrl+sStreamName};
+        return new Object[]{title,links};
     }
 
 }

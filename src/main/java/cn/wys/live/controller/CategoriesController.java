@@ -7,14 +7,13 @@ import cn.wys.live.beans.RetResult;
 import cn.wys.live.service.CategoryService;
 import cn.wys.live.utils.hy.HyLiveLink;
 import cn.wys.live.utils.hy.HyLiveUtils;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 
-import javax.xml.ws.Response;
+
 import java.io.IOException;
 
 /**
@@ -79,9 +78,18 @@ public class CategoriesController {
     public String playLive(@PathVariable(value = "roomid")String roomId, Model model) throws Exception{
 
 
-        String[] ss = HyLiveLink.getLink(roomId);
-        model.addAttribute("title", ss[0]);
-        model.addAttribute("liveLink", ss[1]);
+        Object[] ss = HyLiveLink.getLink(roomId);
+        model.addAttribute("title", (String)ss[0]);
+        String[] links = (String[])ss[1];
+        JSONObject[] array = new JSONObject[links.length];
+        for(int i=0;i<links.length;i++) {
+            JSONObject obj = new JSONObject();
+            obj.put("url",links[i]);
+            obj.put("name","路线"+i);
+            //System.out.println(obj);
+            array[i] = obj;
+        }
+        model.addAttribute("liveLink",array);
 
         return "playlive";
     }
