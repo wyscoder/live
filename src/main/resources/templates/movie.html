@@ -20,5 +20,30 @@
     <li role="presentation"><a href="/live">直播</a></li>
     <li role="presentation" class="active"><a href="/movie">播放视频</a></li>
 </ul>
+
+<div class="row">
+    <div class="col-xs-2 col-md-2">
+        <a class="thumbnail" th:href="@{#}">
+            <img th:src="@{/images/video/亮剑.jpg}" alt="亮剑" onclick="jump()">
+        </a>
+    </div>
+</div>
+
+
+<script>
+    function jump() {
+        $.ajax({
+            url: "/video/1",
+            type:"get",
+            data:[],
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                window.location.href = "/video/detail?videoid=1";
+            }
+        })
+    }
+</script>
+
 </body>
 </html>
