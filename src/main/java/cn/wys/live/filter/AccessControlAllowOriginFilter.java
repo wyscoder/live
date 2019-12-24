@@ -1,5 +1,6 @@
 package cn.wys.live.filter;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.*;
@@ -10,7 +11,7 @@ import java.io.IOException;
  * @author wys
  * @date 2019/11/2
  */
-
+@Configuration
 public class AccessControlAllowOriginFilter implements Filter {
 
     @Override
