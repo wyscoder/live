@@ -19,12 +19,6 @@ public class VideoJumpController {
         System.out.println(videoId);
 
         model.addAttribute("videoName","亮剑");
-
         return "detail";
-    }
-    @RequestMapping("/videos")
-    public String videos() {
-
-        return "videos";
     }
 }
