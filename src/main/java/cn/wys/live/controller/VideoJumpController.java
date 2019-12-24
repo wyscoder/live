@@ -22,5 +22,9 @@ public class VideoJumpController {
 
         return "detail";
     }
+    @RequestMapping("/videos")
+    public String videos() {
 
+        return "videos";
+    }
 }
