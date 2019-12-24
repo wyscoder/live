@@ -2,7 +2,7 @@
 <!-- saved from url=(0038)http://piaohua520.com/show/125720.html -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <meta charset="utf-8">
-    <title>亮剑</title>
+    <title th:text="${videoName}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
@@ -35,14 +35,14 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h1 class="movie-title">亮剑</h1>
+                <h1 class="movie-title" th:text="${videoName}"></h1>
             </div>
 
             <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-4" style="padding-right:5px;">
                         <a href="#" style="display:block;position:relative;">
-                            <img th:src="@{/images/video/亮剑.jpg}" alt="亮剑" width="100%">
+                            <img th:src="@{'/images/video/'+${videoName}+'.jpg'}" th:alt="${videoName}" width="100%">
                         </a>
                         <div class="online-button">
                         <a target="_blank" class="btn btn-success btn-block" href="#">立即播放</a>
