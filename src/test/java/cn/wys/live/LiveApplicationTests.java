@@ -30,7 +30,7 @@ class LiveApplicationTests {
     void contextLoads() {
     }
 
-    @Test
+    /*@Test
     void testvideo() throws Exception {
         Map<String,String> head = new HashMap<>();
         head.put("accept", HeaderPiaohua.ACCEPT);
@@ -64,6 +64,6 @@ class LiveApplicationTests {
             System.out.println(play_0);
         }
     }
-
+*/
 
 }

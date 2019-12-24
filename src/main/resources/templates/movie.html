@@ -13,18 +13,25 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}" />
     <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
     <script type="text/javascript" th:src="@{/js/nav.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/live.css}" />
     <link rel="shortcut icon" href="#" />
 </head>
 <body>
 <!--导航条-->
-<ul class="nav nav-pills" >
-    <li role="presentation"><a href="/index">主页</a></li>
-    <li role="presentation"><a href="/live">直播</a></li>
-    <li role="presentation" class="active"><a href="/movie">播放视频</a></li>
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link active" href="/index">主页</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/live">直播</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/movie">播放视频</a>
+    </li>
 </ul>
 
 <div class="row">
-    <div class="col-xs-2 col-md-2">
+    <div class="col-md-2 col-sm-2">
         <a class="thumbnail" th:href="@{#}">
             <img th:src="@{/images/video/亮剑.jpg}" alt="亮剑" onclick="jump()">
         </a>
