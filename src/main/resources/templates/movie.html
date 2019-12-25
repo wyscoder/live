@@ -32,27 +32,13 @@
 
 <div class="row">
     <div class="col-md-2 col-sm-2">
-        <a class="thumbnail" th:href="@{#}">
-            <img th:src="@{/images/video/亮剑.jpg}" alt="亮剑" onclick="jump()">
+        <a class="thumbnail" th:href="@{'/video/detail?title=亮剑'}">
+            <img th:src="@{/images/video/亮剑.jpg}" alt="亮剑">
         </a>
     </div>
 </div>
 
 
-<script>
-    function jump() {
-        $.ajax({
-            url: "/video/1",
-            type:"get",
-            data:[],
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                window.location.href = "/video/detail?videoid=1";
-            }
-        })
-    }
-</script>
 
 </body>
 </html>

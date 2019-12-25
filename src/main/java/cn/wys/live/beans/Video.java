@@ -8,13 +8,14 @@ package cn.wys.live.beans;
 public class Video {
 
     private Integer id;
-    private String name;
-    private String category;
-    private Integer year;
-    private String link;
-    private String Content;
-    private String address;
-    private int p;
+    private String title;
+    private String director;
+    private String stars;
+    private String categories;
+    private String country;
+    private String status;
+    private String year;
+    private String content;
 
     public Integer getId() {
         return id;
@@ -24,59 +25,67 @@ public class Video {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getCategory() {
-        return category;
+    public String getDirector() {
+        return director;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
-    public Integer getYear() {
+    public String getStars() {
+        return stars;
+    }
+
+    public void setStars(String stars) {
+        this.stars = stars;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getP() {
-        return p;
-    }
-
-    public void setP(int p) {
-        this.p = p;
+        this.content = content;
     }
 }

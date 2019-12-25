@@ -2,7 +2,7 @@
 <!-- saved from url=(0038)http://piaohua520.com/show/125720.html -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <meta charset="utf-8">
-    <title th:text="${videoName}"></title>
+    <title th:text="${title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
@@ -35,17 +35,17 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h1 class="movie-title" th:text="${videoName}"></h1>
+                <h1 class="movie-title" th:text="${title}"></h1>
             </div>
 
             <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-4" style="padding-right:5px;">
                         <a href="#" style="display:block;position:relative;">
-                            <img th:src="@{'/images/video/'+${videoName}+'.jpg'}" th:alt="${videoName}" width="100%">
+                            <img th:src="@{'/images/video/'+${title}+'.jpg'}" th:alt="${title}" width="100%">
                         </a>
                         <div class="online-button">
-                        <a target="_blank" class="btn btn-success btn-block" href="#">立即播放</a>
+                        <a target="_blank" class="btn btn-success btn-block" th:href="@{'/video/play_video?title='+${title}+'&seq=1'}">立即播放</a>
                     </div>
                         <div style="clear:both;"></div>
                     </div>
@@ -62,46 +62,44 @@
                                 <tbody>
                                     <tr>
                                         <td class="span2"><span class="info-label">导演</span></td>
-                                        <td>张前 陈健</td>
+                                        <td th:text="${director}"></td>
                                     </tr>
 
                                     <tr>
                                         <td class="span2"><span class="info-label">主演</span></td>
-                                        <td id="casts" style="position:relative;">李幼斌 何政军 张桐 童蕾 孙俪  </td>
+                                        <td id="casts" style="position:relative;" th:text="${stars}"></td>
                                     </tr>
 
                                     <tr>
                                         <td class="span2"><span class="info-label">类型</span></td>
-                                        <td>国产剧</td>
+                                        <td th:text="${categories}"></td>
                                     </tr>
 
                                     <tr>
                                         <td class="span2"><span class="info-label">制片国家</span></td>
-                                        <td>大陆</td>
+                                        <td th:text="${country}"></td>
                                     </tr>
 
                                     <tr>
                                         <td class="span2"><span class="info-label">更新状态</span></td>
-                                        <td>完结</td>
+                                        <td th:text="${status}"></td>
                                     </tr>
 
                                     <tr>
                                         <td class="span2"><span class="info-label">上映日期</span></td>
-                                        <td>2005</td>
+                                        <td th:text="${year}"></td>
                                     </tr>
 
                                     <tr>
                                         <td class="span2"><span class="info-label">更新日期</span></td>
-                                        <td>2019-12-24</td>
+                                        <td th:text="${year}"></td>
                                     </tr>
                             </tbody>
                         </table>
             <p style="color:#777;">
                 <strong>剧情介绍：</strong>
             </p>
-            <p class="summary">
-                李云龙是八路军独立团的团长，在他的独特指挥下，山崎大队全部消灭。李云龙又会同国军团长楚云飞闯进日军重兵把守的县城，守备部队全军覆灭，李云龙和楚云飞在晋西北因此名声大噪，李楚成为好友。抗战胜利，李楚又相逢在淮海战场，二人差点同归于...
-            </p>
+            <p class="summary" th:text="${content}"></p>
         </div>
     </div>
 
@@ -109,36 +107,9 @@
         <div class="panel panel-default resource-list">
             <div class="panel-heading"><strong>亮剑</strong></div>
             <ul class="dslist-group">
-                <li class="dslist-group-item"><a target="_blank" href="#">第1集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第2集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第3集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第4集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第5集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第6集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第7集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第8集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第9集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第10集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第11集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第12集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第13集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第14集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第15集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第16集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第17集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第18集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第19集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第20集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第21集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第22集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第23集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第24集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第25集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第26集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第27集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第28集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第29集</a> </li>
-                <li class="dslist-group-item"><a target="_blank" href="#">第30集</a> </li>
+                <li class="dslist-group-item" th:each="it,cit:${list}">
+                    <a th:href="@{'/video/play_video?title='+${title}+'&seq='+${it}}" th:text="'第'+${it}+'集'" target="_blank"></a>
+                </li>
             </ul>
             <div class="panel-footer resource-help" style="clear: both;"></div>
         </div>

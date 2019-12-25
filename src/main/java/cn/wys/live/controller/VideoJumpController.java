@@ -1,9 +1,15 @@
 package cn.wys.live.controller;
 
+import cn.wys.live.beans.Link;
+import cn.wys.live.beans.Video;
+import cn.wys.live.service.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wys
@@ -14,11 +20,66 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class VideoJumpController {
 
-    @RequestMapping("/detail")
-    public String detail(@RequestParam("videoid") String videoId, Model model) {
-        System.out.println(videoId);
+    @Autowired
+    private VideoService videoService;
 
-        model.addAttribute("videoName","亮剑");
+    @RequestMapping("/detail")
+    public String detail(String title, Model model) {
+
+        Video video = videoService.selectVideoByName("亮剑").get(0);
+        Integer count = videoService.selectLinkByVideoCount(video.getId());
+        List list = new ArrayList();
+        for(int i=1;i<=count;i++){
+            list.add(i);
+        }
+        model.addAttribute("title",video.getTitle());
+        model.addAttribute("director",video.getDirector());
+        model.addAttribute("stars",video.getStars());
+        model.addAttribute("categories",video.getCategories());
+        model.addAttribute("country",video.getCountry());
+        model.addAttribute("status",video.getStatus());
+        model.addAttribute("year",video.getYear());
+        model.addAttribute("content",video.getContent());
+        model.addAttribute("list",list);
         return "detail";
+    }
+
+    /**
+     * 请求到集数和视频名称
+     * @param title 视频名称
+     * @param seq 序列id
+     * @return 返回的跳转的链接
+     */
+    @RequestMapping("/play_video")
+    public String playVideo(String title,Integer seq,Model model) {
+        seq--;
+        Integer pid = videoService.selectVideoByName(title).get(0).getId();
+        Link link = videoService.selectLinkByVideoAndSeq(pid,seq);
+        model.addAttribute("link",link.getLink());
+        model.addAttribute("title",title+"第"+(seq+1)+"集");
+        return "play_hls";
+    }
+
+    /**
+     * 播放链接
+     * @param link 链接
+     * @return 跳转的链接
+     */
+    @RequestMapping("/playLink")
+    public String playLink(String link,Model model) {
+        model.addAttribute("link",link);
+        System.out.println(link);
+        String suffix = "";
+        //判断一下有没有问号
+        if(link.contains("?")){
+            suffix = link.substring(link.indexOf(".")+1,link.indexOf("?")-1);
+        }else{
+            suffix = link.substring(link.indexOf(".")+1,link.length());
+        }
+        if(suffix.equals("flv")){
+            return "play_flv";
+        }else{
+            return "play_hls";
+        }
     }
 }

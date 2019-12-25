@@ -23,3 +23,5 @@ spring:
       force: true
       charset: utf-8
       enabled: true
+  resources:
+    static-locations: classpath:/static/

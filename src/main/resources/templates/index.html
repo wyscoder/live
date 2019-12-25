@@ -26,11 +26,16 @@
         </li>
     </ul>
 
-    <div class="input-group mb-3" id="play_link">
-        <input type="text" class="form-control" placeholder="请输入视频链接" >
-        <div class="input-group-append">
-            <button type="button" class="btn btn-success">播放</button>
+    <form action="/video/playLink" method="post">
+        <div class="input-group mb-3" id="play_link">
+            <input type="text" class="form-control" placeholder="请输入视频链接" name="link">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-success" >播放</button>
+            </div>
         </div>
-    </div>
+    </form>
+<script>
+
+</script>
 </body>
 </html>
