@@ -29,9 +29,9 @@
     </ul>
 </nav>
 
-    <form action="/video/playLink" method="post" onsubmit="return   check()">
+    <form action="/video/playLink" method="post" onsubmit="return check()">
         <div class="input-group mb-3" id="play_link">
-            <input type="text" class="form-control" placeholder="请输入视频链接" name="link">
+            <input type="text" class="form-control" placeholder="请输入视频链接" name="link" id="link">
             <div class="input-group-append">
                 <button type="submit" class="btn btn-success" id="play_btn">播放</button>
             </div>
@@ -39,7 +39,7 @@
     </form>
 <script>
     function check() {
-        if($('link').val() == ""){
+        if($('#link').val() == ""||$('#link').val() == null){
             alert("不能输入空链接！");
             return false;
         }
