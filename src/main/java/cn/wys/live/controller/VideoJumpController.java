@@ -26,7 +26,7 @@ public class VideoJumpController {
     @RequestMapping("/detail")
     public String detail(String title, Model model) {
 
-        Video video = videoService.selectVideoByName("亮剑").get(0);
+        Video video = videoService.selectVideoByName(title).get(0);
         Integer count = videoService.selectLinkByVideoCount(video.getId());
         List list = new ArrayList();
         for(int i=1;i<=count;i++){
@@ -78,8 +78,10 @@ public class VideoJumpController {
         }
         if(suffix.equals("flv")){
             return "play_flv";
-        }else{
+        }else if(suffix.equals("m3u8")){
             return "play_hls";
+        }else{
+            return "play_all";
         }
     }
 }

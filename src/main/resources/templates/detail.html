@@ -17,17 +17,20 @@
 </head>
 <body>
 
-<ul class="nav">
-    <li class="nav-item">
-        <a class="nav-link active" href="/index">主页</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/live">直播</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/movie">播放视频</a>
-    </li>
-</ul>
+<!--导航条-->
+<nav class="nav nav-pills">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/index">主页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/live">直播</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/movie">视频</a>
+        </li>
+    </ul>
+</nav>
 
 
 <div class="container">
@@ -105,7 +108,7 @@
 
     <div class="col-md-12">
         <div class="panel panel-default resource-list">
-            <div class="panel-heading"><strong>亮剑</strong></div>
+            <div class="panel-heading"><strong th:text="${title}"></strong></div>
             <ul class="dslist-group">
                 <li class="dslist-group-item" th:each="it,cit:${list}">
                     <a th:href="@{'/video/play_video?title='+${title}+'&seq='+${it}}" th:text="'第'+${it}+'集'" target="_blank"></a>

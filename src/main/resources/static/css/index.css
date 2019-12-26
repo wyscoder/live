@@ -10,3 +10,14 @@ image{
 #play_link{
     margin-top: 300px;
 }
+#play_btn{
+    line-height: 0.5;
+}
+#leftPageMsg{
+    bottom: -80px;
+    margin-left:810px;
+}
+#page{
+    margin-left:875px;
+}
+

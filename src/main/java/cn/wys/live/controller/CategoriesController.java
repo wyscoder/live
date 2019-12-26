@@ -1,9 +1,6 @@
 package cn.wys.live.controller;
 
-import cn.wys.live.beans.Page;
-import cn.wys.live.beans.RetCode;
-import cn.wys.live.beans.RetResponse;
-import cn.wys.live.beans.RetResult;
+import cn.wys.live.beans.*;
 import cn.wys.live.service.CategoryService;
 import cn.wys.live.utils.hy.HyLiveLink;
 import cn.wys.live.utils.hy.HyLiveUtils;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author wys
@@ -35,6 +33,18 @@ public class CategoriesController {
         this.categoryService = categoryService;
     }
 
+
+
+    @RequestMapping("/live")
+    public String jumpLiveCategories(Model model){
+
+        List<Categories> categoriesList = categoryService.selectAllCategory();
+        model.addAttribute("categoriesList",categoriesList);
+
+        return "live";
+    }
+
+
     /**
      * 解析收到的图片类别，然后检索数据库
      * @param myCategories
@@ -44,6 +54,7 @@ public class CategoriesController {
     public String categories(@PathVariable(value = "category") String myCategories, Model model) throws Exception{
         Integer id = categoryService.selectIdByName(myCategories);
 
+        categoryService.updateCategoriesCount(myCategories);
         try{
             model.addAttribute("myCategory", myCategories);
             model.addAttribute("page", HyLiveUtils.getAllAnchor(id, 1));

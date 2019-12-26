@@ -17,17 +17,19 @@
 </head>
 <body>
 <!--导航条-->
-<ul class="nav">
-    <li class="nav-item">
-        <a class="nav-link active" href="/index">主页</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/live">直播</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/movie">播放视频</a>
-    </li>
-</ul>
+<nav class="nav nav-pills">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/index">主页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/live">直播</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/movie">视频</a>
+        </li>
+    </ul>
+</nav>
 <table class="table" id="tableId">
 
     <span th:if="${page!=null}">
@@ -48,14 +50,14 @@
 
 </table>
 
-<div class="leftPageMsg">
+<div class="leftPageMsg" id="leftPageMsg">
     <span>直播数量：<span th:text="${page.totalCount}" id="totalCount"></span></span>
     <span>当前页数：<span th:text="${page.thePage}" id="thePage"></span></span>
     <span>总页数：<span th:text="${page.totalPage}" class="totalPage"></span></span>
 </div>
 
 <!--分页-->
-<div class="pagination pagination-right navbar-right">
+<div class="pagination pagination-right" id="page">
     <button type="button" class="btn btn-info" id="a" th:onclick="categoryList([[${1}]],[[${myCategory}]])">首页</button>
     <button type="button" class="btn btn-info" id="b" th:onclick="categoryList([[${page.thePage-1>1?page.thePage-1:1}]],[[${myCategory}]])">上一页</button>
     <button type="button" class="btn btn-info" id="c" th:onclick="categoryList([[${page.thePage+1>page.totalPage?page.totalPage:page.thePage+1}]],[[${myCategory}]])">下一页</button>

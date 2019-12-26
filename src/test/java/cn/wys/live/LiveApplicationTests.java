@@ -29,30 +29,25 @@ class LiveApplicationTests {
 
     @Autowired
     private VideoService videoService;
-    @Test
     void contextLoads() {
     }
 
-    @Test
     void testImage() throws Exception{
 
-       /* VideoUtils v = new VideoUtils();
-        v.DownLoadVideoImageByLink(v.getSeachTitleLink("亮剑"),"亮剑");*/
+       VideoUtils v = new VideoUtils();
+        v.DownLoadVideoImageByLink(v.getSeachTitleLink("琅琊榜"),"琅琊榜");
     }
-    @Test
     void testDel() throws Exception{
-        videoService.deleteAllLinksByPid(videoService.selectVideoByName("亮剑").get(0).getId());
+        videoService.deleteAllLinksByPid(videoService.selectVideoByName("琅琊榜").get(0).getId());
     }
-    @Test
     void testvideo() throws Exception {
         VideoUtils v = new VideoUtils();
         Video video = new Video();
 
-        //System.out.println(v.getVideoMessage(v.getSeachTitleLink("亮剑")));
-        Map<String,String> map = v.getVideoMessage(v.getSeachTitleLink("亮剑"));
-        List<String> links = v.getVideoLinks(v.getSeachTitleLink("亮剑"));
-
-        /*video.setTitle("亮剑");
+        Map<String,String> map = v.getVideoMessage(v.getSeachTitleLink("琅琊榜"));
+        List<String> links = v.getVideoLinks(v.getSeachTitleLink("琅琊榜"));
+        /*System.out.println(map);
+        video.setTitle("琅琊榜");
         video.setDirector(map.get("导演"));
         video.setStars(map.get("主演"));
         video.setCategories(map.get("类型"));
@@ -62,7 +57,7 @@ class LiveApplicationTests {
         video.setYear(map.get("上映日期"));
         videoService.insertVideo(video);*/
 
-        Integer id = videoService.selectVideoByName("亮剑").get(0).getId();
+        Integer id = videoService.selectVideoByName("琅琊榜").get(0).getId();
         for(int i=0;i<links.size();i++){
             Link link = new Link();
             link.setLink(links.get(i));

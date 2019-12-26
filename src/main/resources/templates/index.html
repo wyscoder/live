@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<!--导航条-->
+<nav class="nav nav-pills">
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link active" href="/index">主页</a>
@@ -22,20 +24,27 @@
             <a class="nav-link" href="/live">直播</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/movie">播放视频</a>
+            <a class="nav-link" href="/movie">视频</a>
         </li>
     </ul>
+</nav>
 
-    <form action="/video/playLink" method="post">
+    <form action="/video/playLink" method="post" onsubmit="return   check()">
         <div class="input-group mb-3" id="play_link">
             <input type="text" class="form-control" placeholder="请输入视频链接" name="link">
             <div class="input-group-append">
-                <button type="submit" class="btn btn-success" >播放</button>
+                <button type="submit" class="btn btn-success" id="play_btn">播放</button>
             </div>
         </div>
     </form>
 <script>
-
+    function check() {
+        if($('link').val() == ""){
+            alert("不能输入空链接！");
+            return false;
+        }
+        return true;
+    }
 </script>
 </body>
 </html>

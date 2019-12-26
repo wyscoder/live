@@ -1,6 +1,11 @@
 package cn.wys.live.service;
 
 
+import cn.wys.live.beans.Categories;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
 /**
  * @author wys
  * @date 2019/10/31
@@ -14,4 +19,8 @@ public interface CategoryService {
      * @return
      */
     Integer selectIdByName(String name);
+
+    List<Categories> selectAllCategory();
+
+    void updateCategoriesCount(String name);
 }
