@@ -48,7 +48,6 @@
                 data["type"] = "hls";
                 qualities[i] = data;
             }*/
-            var id = md5([[${link}]]);
             const dp = new DPlayer({
                 container: document.getElementById('dplayer'),
                 autoplay: true,
@@ -56,10 +55,6 @@
                 video: {
                     quality: [[${liveLink}]],
                     defaultQuality: 1
-                },
-                danmaku: {     //弹幕功能，不需要可以删除
-                    id: id,    //弹幕库的ID，每个视频的弹幕库不能一样，可以把url作为id
-                    api: 'https://dplayer.alone88.cn/'  //这个是官网写好的弹幕接口，可以直接使用，就是不太稳定
                 }
             });
         </script>
