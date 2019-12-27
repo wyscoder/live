@@ -6,14 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>视频</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}" />
-    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
-    <script type="text/javascript" th:src="@{/js/nav.js}"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/live.css}" />
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{https://code.jquery.com/jquery-3.4.1.slim.min.js}" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js}" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
+    <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/live.css}" />
     <link rel="shortcut icon" href="#" />
 </head>
 <body>
@@ -35,12 +35,12 @@
 <div class="row">
     <div class="col-md-2 col-sm-2">
         <a class="thumbnail" th:href="@{'/video/detail?title=亮剑'}">
-            <img th:src="@{/images/video/亮剑.jpg}" alt="亮剑">
+            <img th:src="@{/static/images/video/亮剑.jpg}" alt="亮剑">
         </a>
     </div>
     <div class="col-md-2 col-sm-2">
         <a class="thumbnail" th:href="@{'/video/detail?title=琅琊榜'}">
-            <img th:src="@{/images/video/琅琊榜.jpg}" alt="琅琊榜">
+            <img th:src="@{/static/images/video/琅琊榜.jpg}" alt="琅琊榜">
         </a>
     </div>
 </div>
