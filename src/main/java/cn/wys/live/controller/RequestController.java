@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RequestController {
 
-    @RequestMapping("/{url}")
-    public String allRequest(@PathVariable(value = "url") String myUrl) {
-        return myUrl;
+    @RequestMapping("/index")
+    public String my_index(){
+        return "index";
     }
 
     @RequestMapping("/")
     public String index(){
-        return "/login";
+        return "login";
     }
 }

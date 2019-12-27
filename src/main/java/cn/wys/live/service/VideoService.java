@@ -51,4 +51,8 @@ public interface VideoService {
     Integer selectLinkByVideoCount(Integer pid);
 
     void deleteAllLinksByPid(Integer pid);
+
+    void deleteVideoById(Integer id);
+
+    Video selectVideoById(Integer id);
 }

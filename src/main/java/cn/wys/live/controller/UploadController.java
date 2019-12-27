@@ -9,18 +9,17 @@ import cn.wys.live.service.VideoService;
 import cn.wys.live.utils.video.VideoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 视频上传的控制器
  */
+
 @RestController
 public class UploadController {
 
@@ -30,13 +29,17 @@ public class UploadController {
     @Autowired
     private VideoService videoService;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @GetMapping("/upload_video")
     public RetResult uploadVideo(String name,HttpSession session){
         try {
 
             Video video = new Video();
-
+            List<Video> v = videoService.selectVideoByName(name);
+            //如果视频有问题就把视频删了
+            if(v!=null&&v.size()>0&&videoService.selectAllLinksByVideo(v.get(0).getId()).size()<=0){
+                videoService.deleteVideoById(v.get(0).getId());
+            }
             session.setAttribute("process",0);
 
             String link = videoUtils.getSeachTitleLink(name);
@@ -85,4 +88,8 @@ public class UploadController {
     public RetResult getProcess(HttpSession session){
         return RetResponse.makeOKRsp(session.getAttribute("process"));
     }
+
+
+
+
 }

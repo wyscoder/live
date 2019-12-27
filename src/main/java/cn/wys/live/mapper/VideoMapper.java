@@ -81,4 +81,18 @@ public interface VideoMapper {
     @Delete("delete from link where pid = #{pid}")
     void deleteAllLinksByPid(Integer pid);
 
+    /**
+     * 根据id删除视频信息
+     * @param id 视频id
+     */
+    @Delete("delete from video where id = #{id}")
+    void deleteVideoById(Integer id);
+
+    /**
+     * 根据id查找视频
+     * @param id 视频id
+     * @return 返回的查找到的视频
+     */
+    @Select("select * from video where id = #{id}")
+    Video selectVideoById(Integer id);
 }

@@ -9,31 +9,52 @@
     <script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
     <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/live.css}" />
     <link rel="shortcut icon" href="#" />
 </head>
 <body>
 
 <!--导航条-->
 <nav class="nav nav-pills">
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link active" href="/index">主页</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/live">直播</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/movie">视频</a>
-        </li>
-    </ul>
     <div class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
+            <a class="dropdown-item" href="/admin/manage">个人中心</a>
             <a class="dropdown-item" href="#">退出登录</a>
         </div>
     </div>
 </nav>
 
+<div class="row">
+    <div class="col-md-2 col-sm-2" th:each="it:${videos}">
+        <img th:src="@{'/static/images/video/'+${it.getTitle()}+'.jpg'}" th:alt="${it.getTitle()}">
+        <button target="_blank" type="button" class="btn btn-danger btn-block" th:onclick="delete_video([[${it.getId()}]])" id="delete_btn">删除</button>
+    </div>
+</div>
+<script>
 
+    function delete_video(id) {
+        var msg = confirm("是否删除");
+        if(msg == true){
+            console.log(id);
+            $.ajax({
+                url:"/admin/delete_video",
+                type:"get",
+                dataType:"json",
+                data:{id:id},
+                success:function (data) {
+                    console.log(data);
+                    if(data.code == "200"){
+                        alert("删除成功!");
+                        window.location.reload();
+                    }else{
+                        alert("删除失败！");
+                    }
+                }
+            })
+        }
+    }
+</script>
 </body>
 </html>

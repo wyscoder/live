@@ -109,8 +109,7 @@ public class VideoUtils {
         Element element = document.getElementsByClass("img-thumbnail").get(0);
         String uurl = element.attr("src");
 
-        String path = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\video\\"+message+".jpg";
-
+        String path = System.getProperty("user.dir")+"/video/"+message+".jpg";
         Connection.Response response = Jsoup.connect(uurl).headers(piaohuaHeaders).ignoreContentType(true).ignoreHttpErrors(true).execute();
 
         byte[] img = response.bodyAsBytes();
@@ -123,6 +122,7 @@ public class VideoUtils {
         bufferedOutputStream.write(img);
 
         System.out.println("图片下载完成！");
+        System.out.println(path);
 
 
         fos.flush();

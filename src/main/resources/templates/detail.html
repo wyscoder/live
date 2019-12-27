@@ -52,10 +52,10 @@
                 <div class="row">
                     <div class="col-md-4" style="padding-right:5px;">
                         <a href="#" style="display:block;position:relative;">
-                            <img th:src="@{'/images/video/'+${title}+'.jpg'}" th:alt="${title}" width="100%">
+                            <img th:src="@{'/static/images/video/'+${title}+'.jpg'}" th:alt="${title}" width="100%">
                         </a>
                         <div class="online-button">
-                            <a target="_blank" class="btn btn-success btn-block" th:href="@{'/video/play_video?title='+${title}+'&seq=1'}">立即播放</a>
+                            <a target="_blank" class="btn btn-success btn-block" th:href="@{'/play_video?title='+${title}+'&seq=1'}">立即播放</a>
 
                             <a target="_blank" class="btn btn-danger btn-block" th:href="@{#}">收藏</a>
                         </div>
@@ -120,7 +120,7 @@
             <div class="panel-heading"><strong th:text="${title}"></strong></div>
             <ul class="dslist-group">
                 <li class="dslist-group-item" th:each="it,cit:${list}">
-                    <a th:href="@{'/video/play_video?title='+${title}+'&seq='+${it}}" th:text="'第'+${it}+'集'" target="_blank"></a>
+                    <a th:href="@{'/play_video?title='+${title}+'&seq='+${it}}" th:text="'第'+${it}+'集'" target="_blank"></a>
                 </li>
             </ul>
             <div class="panel-footer resource-help" style="clear: both;"></div>

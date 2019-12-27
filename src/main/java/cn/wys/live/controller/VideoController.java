@@ -16,12 +16,23 @@ import java.util.List;
  * @date 2019/11/9
  * 这个就是视图映射器
  */
-@RequestMapping("/video")
 @Controller
-public class VideoJumpController {
+public class VideoController {
 
     @Autowired
     private VideoService videoService;
+
+    @RequestMapping("/movie")
+    public String movie(Model model) {
+
+        List<Video> videos = videoService.selectAllVideo();
+        model.addAttribute("videos",videos);
+        String path = System.getProperty("user.dir")+"\\video\\";
+        System.out.println(videos);
+        model.addAttribute("path",path);
+
+        return "movie";
+    }
 
     @RequestMapping("/detail")
     public String detail(String title, Model model) {

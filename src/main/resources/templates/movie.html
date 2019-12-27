@@ -40,14 +40,9 @@
 </nav>
 
 <div class="row">
-    <div class="col-md-2 col-sm-2">
-        <a class="thumbnail" th:href="@{'/video/detail?title=亮剑'}">
-            <img th:src="@{/static/images/video/亮剑.jpg}" alt="亮剑">
-        </a>
-    </div>
-    <div class="col-md-2 col-sm-2">
-        <a class="thumbnail" th:href="@{'/video/detail?title=琅琊榜'}">
-            <img th:src="@{/static/images/video/琅琊榜.jpg}" alt="琅琊榜">
+    <div class="col-md-2 col-sm-2" th:each="it:${videos}">
+        <a class="thumbnail" th:href="@{'/detail?title='+${it.getTitle()}}">
+            <img th:src="@{'/static/images/video/'+${it.getTitle()}+'.jpg'}" th:alt="${it.getTitle()}">
         </a>
     </div>
 </div>

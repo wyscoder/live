@@ -20,9 +20,10 @@ import java.util.List;
  * 分类控制器
  */
 @Controller
-public class CategoriesController {
+public class LiveController {
 
     private CategoryService categoryService;
+
 
     /**
      * 给CategoryService注入值
@@ -32,8 +33,6 @@ public class CategoriesController {
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
-
 
     @RequestMapping("/live")
     public String jumpLiveCategories(Model model){

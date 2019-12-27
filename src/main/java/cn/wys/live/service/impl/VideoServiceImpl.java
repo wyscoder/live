@@ -64,4 +64,14 @@ public class VideoServiceImpl implements VideoService {
     public void deleteAllLinksByPid(Integer pid) {
         videoMapper.deleteAllLinksByPid(pid);
     }
+
+    @Override
+    public void deleteVideoById(Integer id) {
+        videoMapper.deleteVideoById(id);
+    }
+
+    @Override
+    public Video selectVideoById(Integer id) {
+        return videoMapper.selectVideoById(id);
+    }
 }

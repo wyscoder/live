@@ -18,7 +18,7 @@
     <div class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">个人中心</a>
+            <a class="dropdown-item" href="/admin/manage">个人中心</a>
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
         </div>
     </div>
@@ -61,16 +61,22 @@
                                 $('.progress-bar').attr("aria-valuenow",data.data);
                                 if(data.data == "100"){
                                     window.clearInterval(getProcess);
+                                    setTimeout(function() {
+                                        alert("部署完毕！");
+                                    },1000)
+                                }else if(data.data == "-1"){
+                                    alert("部署失败！");
+                                    window.clearInterval(getProcess);
                                 }
                             }
                         })
                     },1000);
                 },
                 success:function (data) {
-                    setTimeout(function() {
-                      alert("部署完毕！");
-                    },1000)
                     console.log(data);
+                },
+                error:function (data) {
+                    alert("部署失败！");
                 }
             })
         }
