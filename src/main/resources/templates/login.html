@@ -99,6 +99,9 @@
                 if(data.code == "200"){
 
                     window.location.href = "/index";
+                }else if(data.code == "-1"){
+                    alert(data.msg);
+                    window.location.href = "/admin/manage";
                 }else{
                     alert(data.msg);
                 }

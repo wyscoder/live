@@ -31,6 +31,13 @@
             <a class="nav-link" href="/movie">视频</a>
         </li>
     </ul>
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">个人中心</a>
+            <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
+        </div>
+    </div>
 </nav>
 
 <div class="row">

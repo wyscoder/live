@@ -25,3 +25,8 @@ spring:
       enabled: true
   resources:
     static-locations: classpath:/static/
+  devtools:
+    restart:
+      enabled: true  #开启热部署
+  freemarker:
+    cache: false  #页面不加载缓存，修改即时生效

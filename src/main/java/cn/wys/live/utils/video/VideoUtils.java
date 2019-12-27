@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
@@ -22,6 +23,7 @@ import java.util.Map;
  * VideoUtils工具类
  * 基于飘花网站实现的
  */
+@Configuration
 public class VideoUtils {
 
     private final static String BASIC = "http://piaohua520.com";

@@ -30,6 +30,13 @@
             <a class="nav-link active" href="/movie">视频</a>
         </li>
     </ul>
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">个人中心</a>
+            <a class="dropdown-item" href="#">退出登录</a>
+        </div>
+    </div>
 </nav>
 
 
@@ -48,8 +55,10 @@
                             <img th:src="@{'/images/video/'+${title}+'.jpg'}" th:alt="${title}" width="100%">
                         </a>
                         <div class="online-button">
-                        <a target="_blank" class="btn btn-success btn-block" th:href="@{'/video/play_video?title='+${title}+'&seq=1'}">立即播放</a>
-                    </div>
+                            <a target="_blank" class="btn btn-success btn-block" th:href="@{'/video/play_video?title='+${title}+'&seq=1'}">立即播放</a>
+
+                            <a target="_blank" class="btn btn-danger btn-block" th:href="@{#}">收藏</a>
+                        </div>
                         <div style="clear:both;"></div>
                     </div>
                     <div class="col-md-8" style="padding-right:5px;">

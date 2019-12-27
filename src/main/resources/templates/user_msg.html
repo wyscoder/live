@@ -30,27 +30,11 @@
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="#">个人中心</a>
-            <a class="dropdown-item" href="#">退出登录</a>
+            <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
         </div>
     </div>
 </nav>
 
-    <form action="/video/playLink" method="post" onsubmit="return check()">
-        <div class="input-group mb-3" id="play_link">
-            <input type="text" class="form-control" placeholder="请输入视频链接" name="link" id="link">
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-success" id="play_btn">播放</button>
-            </div>
-        </div>
-    </form>
-<script>
-    function check() {
-        if($('#link').val() == ""||$('#link').val() == null){
-            alert("不能输入空链接！");
-            return false;
-        }
-        return true;
-    }
-</script>
+
 </body>
 </html>

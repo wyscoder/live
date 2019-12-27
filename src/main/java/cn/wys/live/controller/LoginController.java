@@ -22,6 +22,8 @@ public class LoginController {
 
     @Autowired
     private UserMapper userMapper;
+
+
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login() {
         return "login";
@@ -30,6 +32,10 @@ public class LoginController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public RetResult Login(String username, String password, HttpSession session){
+        if(username.equals("admin") &&password.equals("admin")){
+            session.setAttribute("name","admin");
+            return RetResponse.makeRsp(-1,"管理员登录");
+        }
         System.out.println(username+" :"+password);
         String msg = "";
         User user = userMapper.selectUserByUserName(username);
@@ -45,5 +51,11 @@ public class LoginController {
             }
         }
         return RetResponse.makeErrRsp(msg);
+    }
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("name");
+        session.removeAttribute("id");
+        return "login";
     }
 }
