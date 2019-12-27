@@ -88,7 +88,7 @@ public class VideoUtils {
         }
 
         Document document = Jsoup.connect(link).ignoreContentType(true).ignoreHttpErrors(true).headers(piaohuaHeaders).get();
-        Element element = document.getElementsByClass("dslist-group").get(1);
+        Element element = document.getElementsByClass("dslist-group").get(0);
         List<String> links = new ArrayList<>();
         System.out.println(document.getElementsByClass("dslist-group").size());
         for(Element e:element.getElementsByTag("a")){

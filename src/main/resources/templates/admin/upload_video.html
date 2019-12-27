@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+      <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 </form>
 
@@ -47,8 +47,29 @@
                 type:"get",
                 dataType:"json",
                 data:$('#upload_video').serialize(),
+                beforeSend: function(){
+                    alert("开始部署！");
+                    var getProcess = setInterval(function(){
+                        $.ajax({
+                            url:"/getProcess",
+                            type:"post",
+                            dataType:"json",
+                            data:{},
+                            success:function(data) {
+                                //console.log(data);
+                                $('.progress-bar').css("width",data.data+"%");
+                                $('.progress-bar').attr("aria-valuenow",data.data);
+                                if(data.data == "100"){
+                                    window.clearInterval(getProcess);
+                                }
+                            }
+                        })
+                    },1000);
+                },
                 success:function (data) {
-
+                    setTimeout(function() {
+                      alert("部署完毕！");
+                    },1000)
                     console.log(data);
                 }
             })
