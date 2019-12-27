@@ -18,4 +18,8 @@ public class RequestController {
         return myUrl;
     }
 
+    @RequestMapping("/")
+    public String index(){
+        return "/login";
+    }
 }
