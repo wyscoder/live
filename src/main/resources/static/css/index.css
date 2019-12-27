@@ -1,7 +1,7 @@
 body {
     width: 60%;
     margin: 0 auto;
-    background-image: url("/images/yinghuashu.jpg");
+    background-image: url("/static/images/yinghuashu.jpg");
 }
 image{
     width: 171px;
@@ -20,4 +20,6 @@ image{
 #page{
     margin-left:875px;
 }
-
+.myMsg{
+    margin-left: 400px;
+}
