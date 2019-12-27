@@ -68,6 +68,7 @@ public class VideoJumpController {
     @RequestMapping("/playLink")
     public String playLink(String link,Model model) {
         model.addAttribute("link",link);
+        model.addAttribute("title","正在播放");
         System.out.println(link);
         String suffix = "";
         //判断一下有没有问号
