@@ -1,11 +1,14 @@
 package cn.wys.live.controller;
 
+import cn.wys.live.beans.RetResponse;
+import cn.wys.live.beans.RetResult;
 import cn.wys.live.beans.User;
 import cn.wys.live.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author wys
@@ -23,11 +26,14 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public String Register(String username,String mail,String password,String comfirmPassword,String name){
+    @ResponseBody
+    public RetResult Register(String username, String mail, String password, String comfirmPassword, String name){
 
+        String msg = "";
         User uu = userService.selectUserByUserName(username);
         if(uu!=null){
-            return "register";
+            msg = "用户已存在！";
+            return RetResponse.makeErrRsp(msg);
         }
         User user = new User();
         user.setUsername(username);
@@ -35,8 +41,11 @@ public class RegisterController {
         user.setMail(mail);
         user.setPassword(password);
         userService.insertUser(user);
+
+
         System.out.println(username);
-        return "login";
+
+        return RetResponse.makeOKRsp();
 
     }
 }

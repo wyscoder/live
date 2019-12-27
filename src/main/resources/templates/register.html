@@ -9,7 +9,7 @@
 <link th:href="@{/static/css/bootsnav.css}" type="text/css" rel="stylesheet">
 <link th:href="@{/static/css/normalize.css}" type="text/css" rel="stylesheet">
 <link th:href="@{/static/css/css.css}" rel="stylesheet" type="text/css">
-<script th:src="@{https://code.jquery.com/jquery-3.4.1.slim.min.js}" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></script>
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js}" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
 <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script th:src="@{/static/js/bootsnav.js}" type="text/javascript"></script>
@@ -24,7 +24,7 @@
   		<div class="login-form">
   			<div class="register-content">
   				<h1 class="title_name">账户注册</h1>
-  				<form method="post" role="form" id="form_login" class="login_padding" action="/register">
+  				<form method="post" role="form" id="form_register" class="login_padding">
 				<div class="form-group clearfix">
 
 					<div class="input-group">
@@ -78,10 +78,10 @@
 
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-danger btn-block btn-login" value="注册">
+					<a type="submit" class="btn btn-danger btn-block btn-login" onclick="register()">
 						<i class="fa fa-sign-in"></i>
 						注册
-					</input>
+					</a>
 				</div>
 				<div class="form-group">
 					<a th:href="@{login}" type="submit" class="btn btn-danger btn-block btn-login">
@@ -98,5 +98,51 @@
 <script th:src="@{/static/js/TweenLite/EasePack.min.js}"></script>
 <script th:src="@{/static/js/TweenLite/rAF.js}"></script>
 <script th:src="@{/static/js/TweenLite/demo-1.js}"></script>
+<script>
+
+	function check(){
+		var msg = "";
+		var p1 = document.getElementById("password").value;
+		var p2 = document.getElementById("confirm_password").value;
+		if($('#username').val() == null||$('#username').val() == ""){
+			msg = "用户名不能为空！";
+		}
+		if($('#password').val() == null || $('#password').val() == ""){
+			msg = "密码不能为空!";
+		}
+		if(p1 != p2){
+			msg = "两次密码必须保持一致！";
+		}
+		if(msg != ""){
+			alert(msg);
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	function register() {
+		var flag = check();
+		if(flag == false){
+			return;
+		}
+		$.ajax({
+			url:"register",
+			type:"post",
+			dataType:"json",
+			data:$('#form_register').serialize(),
+			success:function (data) {
+				console.log(data);
+				if(data.code == "200"){
+					window.location.href = "/slogin";
+				}else{
+					alert(data.msg);
+				}
+			}
+		})
+	}
+
+
+</script>
 </body>
 </html>
