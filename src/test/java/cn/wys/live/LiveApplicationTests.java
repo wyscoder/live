@@ -35,8 +35,7 @@ class LiveApplicationTests {
 
     @Test
     void testImage() throws Exception {
-
-
+        //System.out.println(System.getProperty("os.name").toLowerCase().startsWith("win"));
         //v.DownLoadVideoImageByLink(v.getSeachTitleLink("仙剑奇侠传一"), "仙剑奇侠传一");
 
     }

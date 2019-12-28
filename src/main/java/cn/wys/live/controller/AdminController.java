@@ -44,7 +44,13 @@ public class AdminController {
             String name = videoService.selectVideoById(id).getTitle();
             videoService.deleteAllLinksByPid(id);
             videoService.deleteVideoById(id);
-            String path = System.getProperty("user.dir")+"/video/"+name+".jpg";
+            String path = "";
+            String os = System.getProperty("os.name");
+            if(os.toLowerCase().startsWith("win")){
+                path = System.getProperty("user.dir")+"src/main/resources/static/images/video/"+name+".jpg";
+            }else{
+                path = System.getProperty("user.dir")+"/video/"+name+".jpg";
+            }
             File file = new File(path);
             if(file.exists()){
                 file.delete();

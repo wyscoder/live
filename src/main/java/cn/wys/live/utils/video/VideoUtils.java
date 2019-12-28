@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.SocketUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -108,8 +109,13 @@ public class VideoUtils {
         Document document = Jsoup.connect(link).ignoreContentType(true).ignoreHttpErrors(true).headers(piaohuaHeaders).get();
         Element element = document.getElementsByClass("img-thumbnail").get(0);
         String uurl = element.attr("src");
-
-        String path = System.getProperty("user.dir")+"/video/"+message+".jpg";
+        String path = "";
+        String os = System.getProperty("os.name");
+        if(os.toLowerCase().startsWith("win")){
+            path = System.getProperty("user.dir")+"src/main/resources/static/images/video/"+message+".jpg";
+        }else{
+            path = System.getProperty("user.dir")+"/video/"+message+".jpg";
+        }
         Connection.Response response = Jsoup.connect(uurl).headers(piaohuaHeaders).ignoreContentType(true).ignoreHttpErrors(true).execute();
 
         byte[] img = response.bodyAsBytes();
