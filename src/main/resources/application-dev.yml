@@ -30,3 +30,7 @@ spring:
       enabled: true  #开启热部署
   freemarker:
     cache: false  #页面不加载缓存，修改即时生效
+#mybatis映射不支持驼峰，得手动开启
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

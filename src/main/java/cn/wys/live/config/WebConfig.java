@@ -24,7 +24,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/static/images/video/**").addResourceLocations("file:/home/hylive/video/");
+        String os = System.getProperty("os.name");
+        if(!os.toLowerCase().startsWith("win")) {
+            registry.addResourceHandler("/static/images/video/**").addResourceLocations("file:/home/hylive/video/");
+        }
     }
 }
 

@@ -1,13 +1,16 @@
 package cn.wys.live.controller;
 
+import cn.wys.live.beans.Collection;
 import cn.wys.live.beans.Link;
 import cn.wys.live.beans.Video;
+import cn.wys.live.service.UserService;
 import cn.wys.live.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,8 @@ public class VideoController {
 
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/movie")
     public String movie(Model model) {
@@ -35,7 +40,7 @@ public class VideoController {
     }
 
     @RequestMapping("/detail")
-    public String detail(String title, Model model) {
+    public String detail(String title, Model model, HttpSession session) {
 
         Video video = videoService.selectVideoByName(title).get(0);
         Integer count = videoService.selectLinkByVideoCount(video.getId());
@@ -43,6 +48,15 @@ public class VideoController {
         for(int i=1;i<=count;i++){
             list.add(i);
         }
+        Integer id = (Integer)session.getAttribute("id");
+        Collection collection = userService.selectCollectionByVideoIdAndPid(video.getId(),id);
+        System.out.println(collection);
+        if(collection != null){
+            model.addAttribute("collection",1);
+        }else{
+            model.addAttribute("collection",0);
+        }
+        model.addAttribute("video_id",video.getId());
         model.addAttribute("title",video.getTitle());
         model.addAttribute("director",video.getDirector());
         model.addAttribute("stars",video.getStars());

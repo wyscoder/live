@@ -9,6 +9,8 @@
     <script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
     <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/live.css}" />
     <link rel="shortcut icon" href="#" />
 </head>
 <body>
@@ -17,24 +19,56 @@
 <nav class="nav nav-pills">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link active" href="/index">主页</a>
+            <a class="nav-link active" th:href="@{/index}">主页</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/live">直播</a>
+            <a class="nav-link" th:href="@{/live}">直播</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/movie">视频</a>
+            <a class="nav-link" th:href="@{/movie}">视频</a>
         </li>
     </ul>
     <div class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">个人中心</a>
+            <a class="dropdown-item" th:href="@{/user}">我的收藏</a>
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
         </div>
     </div>
 </nav>
-
-
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand">我的收藏</span>
+</nav>
+<div class="row" th:if="${videoList != 'null'}">
+    <div class="col-md-2 col-sm-2" th:each="it:${videoList}">
+        <a class="thumbnail" th:href="@{'/detail?title='+${it.getTitle()}}">
+            <img th:src="@{'/static/images/video/'+${it.getTitle()}+'.jpg'}" th:alt="${it.getTitle()}">
+        </a>
+        <button target="_blank" type="button" class="btn btn-danger btn-block" th:onclick="delete_video([[${it.getId()}]])" id="delete_btn">取消收藏</button>
+    </div>
+</div>
+<script>
+    function delete_video(id) {
+        var msg = confirm("是否取消收藏");
+        if(msg == true){
+            console.log(id);
+            $.ajax({
+                url:"/delete_collection",
+                type:"post",
+                dataType:"json",
+                data:{videoId:id},
+                success:function (data) {
+                    console.log(data);
+                    if(data.code == "200"){
+                        alert("取消收藏成功!");
+                        window.location.reload();
+                    }else{
+                        alert("取消收藏失败！");
+                    }
+                }
+            })
+        }
+    }
+</script>
 </body>
 </html>

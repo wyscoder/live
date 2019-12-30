@@ -21,19 +21,19 @@
 <nav class="nav nav-pills">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="/index">主页</a>
+            <a class="nav-link" th:href="@{/index}">主页</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/live">直播</a>
+            <a class="nav-link" th:href="@{/live}">直播</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="/movie">视频</a>
+            <a class="nav-link active" th:href="@{/movie}">视频</a>
         </li>
     </ul>
     <div class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">个人中心</a>
+            <a class="dropdown-item" th:href="@{/user}">我的收藏</a>
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
         </div>
     </div>
@@ -57,7 +57,9 @@
                         <div class="online-button">
                             <a target="_blank" class="btn btn-success btn-block" th:href="@{'/play_video?title='+${title}+'&seq=1'}">立即播放</a>
 
-                            <a target="_blank" class="btn btn-danger btn-block" th:href="@{#}">收藏</a>
+                            <button target="_blank" type="button" class="btn btn-secondary btn-block" th:if="${collection eq 1}" disabled>已收藏</button>
+                            <button target="_blank" type="button" class="btn btn-danger btn-block" th:if="${collection eq 0}" th:onclick="collectionVideo([[${video_id}]])">收藏</button>
+
                         </div>
                         <div style="clear:both;"></div>
                     </div>
@@ -131,6 +133,25 @@
         </div>
     </div>
 </div>
-
+<script>
+    function collectionVideo(id) {
+        $.ajax({
+            url:"/collection",
+            type:"post",
+            dataType:"json",
+            data:{videoId:id},
+            success:function (data) {
+                if(data.code == "200"){
+                    alert("收藏成功！");
+                    window.location.reload();
+                }else{
+                    alert("收藏失败！");
+                }
+            }
+        })
+    }
+    
+    
+</script>
 </body>
 </html>

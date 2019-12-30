@@ -108,11 +108,15 @@ public class VideoUtils {
         }
         Document document = Jsoup.connect(link).ignoreContentType(true).ignoreHttpErrors(true).headers(piaohuaHeaders).get();
         Element element = document.getElementsByClass("img-thumbnail").get(0);
+
         String uurl = element.attr("src");
+        uurl = uurl.substring(uurl.indexOf(":"),uurl.length());
+        uurl = "https" + uurl;
+
         String path = "";
         String os = System.getProperty("os.name");
         if(os.toLowerCase().startsWith("win")){
-            path = System.getProperty("user.dir")+"src/main/resources/static/images/video/"+message+".jpg";
+            path = System.getProperty("user.dir")+"/src/main/resources/static/images/video/"+message+".jpg";
         }else{
             path = System.getProperty("user.dir")+"/video/"+message+".jpg";
         }

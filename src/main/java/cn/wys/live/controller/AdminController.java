@@ -3,6 +3,7 @@ package cn.wys.live.controller;
 import cn.wys.live.beans.RetResponse;
 import cn.wys.live.beans.RetResult;
 import cn.wys.live.beans.Video;
+import cn.wys.live.service.UserService;
 import cn.wys.live.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,11 @@ public class AdminController {
 
     @Autowired
     private VideoService videoService;
+
+    @Autowired
+    private UserService userService;
+
+
     @RequestMapping("/upload")
     public String upload_video(){
         return "admin/upload_video";
@@ -44,10 +50,12 @@ public class AdminController {
             String name = videoService.selectVideoById(id).getTitle();
             videoService.deleteAllLinksByPid(id);
             videoService.deleteVideoById(id);
+            userService.deleteCollectionByVideoId(id);
+
             String path = "";
             String os = System.getProperty("os.name");
             if(os.toLowerCase().startsWith("win")){
-                path = System.getProperty("user.dir")+"src/main/resources/static/images/video/"+name+".jpg";
+                path = System.getProperty("user.dir")+"/src/main/resources/static/images/video/"+name+".jpg";
             }else{
                 path = System.getProperty("user.dir")+"/video/"+name+".jpg";
             }
