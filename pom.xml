@@ -9,6 +9,7 @@
         <module>live-domain</module>
         <module>live-commons</module>
         <module>live-hy</module>
+        <module>live-video</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
