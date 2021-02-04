@@ -15,17 +15,4 @@ public interface UserService {
     User selectUserByUserName(String username);
 
     void insertUser(User user);
-
-    List<Collection> selectCollectionByUserId(Integer id);
-
-    void insertCollection(Collection collection);
-
-    List<Video> selectCollectionVideoById(Integer id);
-
-    void deleteCollectionByIdAndPid(Integer id, Integer pid);
-
-    Collection selectCollectionByVideoIdAndPid(Integer id, Integer pid);
-
-    void deleteCollectionByVideoId(Integer id);
-
 }

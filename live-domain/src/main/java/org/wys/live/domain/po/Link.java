@@ -1,55 +1,31 @@
 package org.wys.live.domain.po;
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /**
  * @author wys
  * @date 2019/12/25
  */
+@Data
+@TableName("link")
 public class Link {
 
+    @TableId(type = IdType.AUTO)
     private Integer id;
+    @TableField("seq")
     private Integer seq;
+    @TableField("name")
     private String name;
+    @TableField("link")
     private String link;
-    private Integer pid;
+    @TableField("video_id")
+    private Integer videoId;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getSeq() {
-        return seq;
-    }
-
-    public void setSeq(Integer seq) {
-        this.seq = seq;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
 }

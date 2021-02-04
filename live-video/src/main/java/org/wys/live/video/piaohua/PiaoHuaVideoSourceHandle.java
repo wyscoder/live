@@ -1,14 +1,17 @@
-package org.wys.live.hy.video;
+package org.wys.live.video.piaohua;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.wys.live.commons.constant.HeaderPiaohua;
+import org.wys.live.video.VideoSourceHandle;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,32 +19,33 @@ import java.util.Map;
 
 /**
  * @author wys
- * @date 2019/12/25
- * VideoUtils工具类
- * 基于飘花网站实现的
+ * @date 2021/2/4 10:33
  */
-@Configuration
-public class VideoUtils {
+@Component
+public class PiaoHuaVideoSourceHandle extends VideoSourceHandle {
 
-    private final static String BASIC = "http://piaohua520.com";
-    private final static String SEACH_PIAOHUA = "http://www.piaohua520.com/?c=search&wd=";
+    private final String BASIC = "http://piaohua520.com";
+    private final String SEARCH_PIAOHUA = "http://www.piaohua520.com/?c=search&wd=";
 
-    private static Map<String,String> piaohuaHeaders = new HashMap<String,String>();
+    private final Map<String, String> piaohuaHeaders = new HashMap<String, String>();
+
     /**
      * 获取飘花视频的检索信息
      * 检索方式为 从左到右第一个匹配到相同名称的视频的链接
+     *
      * @param message 你想检索的信息
      * @return 返回匹配到的链接
      */
-    public String getSeachTitleLink(String message) throws Exception{
+    @Override
+    public String getSearchTitleLink(String message) throws Exception {
 
-        if(piaohuaHeaders.isEmpty()) {
+        if (piaohuaHeaders.isEmpty()) {
             addPiaoHuapiaohuaHeadersers();
         }
-        Document document = Jsoup.connect(SEACH_PIAOHUA+message).ignoreContentType(true).ignoreHttpErrors(true).headers(piaohuaHeaders).get();
+        Document document = Jsoup.connect(SEARCH_PIAOHUA + message).ignoreContentType(true).ignoreHttpErrors(true).headers(piaohuaHeaders).get();
         Elements elements = document.getElementsByClass("movie-item");
-        for(Element element:elements){
-            if(element.child(0).attr("title").equals(message)){
+        for (Element element : elements) {
+            if (element.child(0).attr("title").equals(message)) {
                 return element.child(0).attr("href");
             }
         }
@@ -54,33 +58,36 @@ public class VideoUtils {
      * @param link 传进来的链接
      * @return 返回的信息
      */
-    public Map<String,String> getVideoMessage(String link) throws Exception{
-        if(piaohuaHeaders.isEmpty()) {
+    @Override
+    public Map<String, String> getVideoMessage(String link) throws Exception {
+        if (piaohuaHeaders.isEmpty()) {
             addPiaoHuapiaohuaHeadersers();
         }
-        Map<String,String> msg = new HashMap<>();
+        Map<String, String> msg = new HashMap<>();
         Document document = Jsoup.connect(link).headers(piaohuaHeaders).ignoreHttpErrors(true).ignoreContentType(true).get();
         Elements elements = document.getElementsByTag("tr");
         //System.out.println(document);
-        for(int i=0;i<elements.size();i++) {
+        for (int i = 0; i < elements.size(); i++) {
             String left = elements.get(i).child(0).text();
             String right = "";
             right = elements.get(i).child(1).text();
-            msg.put(left,right);
+            msg.put(left, right);
 
         }
-        msg.put("剧情",document.getElementsByClass("summary").text());
+        msg.put("剧情", document.getElementsByClass("summary").text());
         return msg;
     }
 
     /**
      * 获取当前影视的播放链接
+     *
      * @param link 影视详细页面的链接
      * @return 返回的是影视链接
      * @throws Exception 抛出的异常
      */
+    @Override
     public List<String> getVideoLinks(String link) throws Exception {
-        if(piaohuaHeaders.isEmpty()) {
+        if (piaohuaHeaders.isEmpty()) {
             addPiaoHuapiaohuaHeadersers();
         }
 
@@ -88,33 +95,34 @@ public class VideoUtils {
         Element element = document.getElementsByClass("dslist-group").get(0);
         List<String> links = new ArrayList<>();
         System.out.println(document.getElementsByClass("dslist-group").size());
-        for(Element e:element.getElementsByTag("a")){
+        for (Element e : element.getElementsByTag("a")) {
             String url = BASIC + e.attr("href");
             document = Jsoup.connect(url).ignoreHttpErrors(true).ignoreContentType(true).headers(piaohuaHeaders).get();
             String l = document.getElementsByTag("iframe").attr("src");
-            links.add(l.substring(l.indexOf("=")+1,l.length()));
+            links.add(l.substring(l.indexOf("=") + 1, l.length()));
         }
 
         return links;
     }
 
-    public void DownLoadVideoImageByLink(String link,String message) throws Exception {
-        if(piaohuaHeaders.isEmpty()) {
+    @Override
+    public void DownLoadVideoImageByLink(String link, String message) throws Exception {
+        if (piaohuaHeaders.isEmpty()) {
             addPiaoHuapiaohuaHeadersers();
         }
         Document document = Jsoup.connect(link).ignoreContentType(true).ignoreHttpErrors(true).headers(piaohuaHeaders).get();
         Element element = document.getElementsByClass("img-thumbnail").get(0);
 
         String uurl = element.attr("src");
-        uurl = uurl.substring(uurl.indexOf(":"),uurl.length());
+        uurl = uurl.substring(uurl.indexOf(":"), uurl.length());
         uurl = "https" + uurl;
 
         String path = "";
         String os = System.getProperty("os.name");
-        if(os.toLowerCase().startsWith("win")){
-            path = System.getProperty("user.dir")+"/src/main/resources/static/images/video/"+message+".jpg";
-        }else{
-            path = System.getProperty("user.dir")+"/video/"+message+".jpg";
+        if (os.toLowerCase().startsWith("win")) {
+            path = System.getProperty("user.dir") + "/live-web/src/main/resources/static/images/video/" + message + ".jpg";
+        } else {
+            path = System.getProperty("user.dir") + "/video/" + message + ".jpg";
         }
         Connection.Response response = Jsoup.connect(uurl).headers(piaohuaHeaders).ignoreContentType(true).ignoreHttpErrors(true).execute();
 
@@ -145,8 +153,6 @@ public class VideoUtils {
         piaohuaHeaders.put("accept-encoding", HeaderPiaohua.ACCEPT_ENCODING);
         piaohuaHeaders.put("accept-language", HeaderPiaohua.ACCEPT_LANGUAGE);
         piaohuaHeaders.put("cookie", HeaderPiaohua.COOKIE);
-        piaohuaHeaders.put("user-agent",HeaderPiaohua.USER_AGENT);
+        piaohuaHeaders.put("user-agent", HeaderPiaohua.USER_AGENT);
     }
-
-
 }

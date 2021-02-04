@@ -1,4 +1,4 @@
-package org.wys.live.domain.po;
+package org.wys.live.web.response;
 
 /**
  * 转换返回类型

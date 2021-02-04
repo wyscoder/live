@@ -1,13 +1,15 @@
 package org.wys.live.web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.wys.live.domain.po.Link;
-import org.wys.live.domain.po.RetResponse;
-import org.wys.live.domain.po.RetResult;
+import org.wys.live.server.service.LinkService;
+import org.wys.live.video.piaohua.PiaoHuaVideoSourceHandle;
+import org.wys.live.web.response.RetResponse;
+import org.wys.live.web.response.RetResult;
 import org.wys.live.domain.po.Video;
-import org.wys.live.hy.video.VideoUtils;
 import org.wys.live.server.service.VideoService;
 
 import javax.servlet.http.HttpSession;
@@ -19,36 +21,32 @@ import java.util.Map;
  */
 
 @RestController
+@AllArgsConstructor
+@Slf4j
 public class UploadController {
 
-    @Autowired
-    private VideoUtils videoUtils;
+    private final PiaoHuaVideoSourceHandle piaoHuaVideoSourceHandle;
+    private final VideoService videoService;
+    private final LinkService linkService;
 
-    @Autowired
-    private VideoService videoService;
 
     @Transactional(rollbackFor = Exception.class)
     @GetMapping("/upload_video")
-    public RetResult uploadVideo(String name, HttpSession session){
+    public RetResult<Integer> uploadVideo(String name, HttpSession session){
         try {
-
             Video video = new Video();
             List<Video> v = videoService.selectVideoByName(name);
             //如果视频有问题就把视频删了
-            if(v!=null&&v.size()>0&&videoService.selectAllLinksByVideo(v.get(0).getId()).size()<=0){
+            if(v!=null&&v.size()>0&&linkService.selectAllLinksByVideoId(v.get(0).getId()).size()<=0){
                 videoService.deleteVideoById(v.get(0).getId());
             }
             session.setAttribute("process",0);
-
-            String link = videoUtils.getSeachTitleLink(name);
+            String link = piaoHuaVideoSourceHandle.getSearchTitleLink(name);
             session.setAttribute("process",(int)session.getAttribute("process")+15);
-
-            videoUtils.DownLoadVideoImageByLink(link,name);
+            piaoHuaVideoSourceHandle.DownLoadVideoImageByLink(link,name);
             session.setAttribute("process",(int)session.getAttribute("process")+15);
-
-            Map<String,String> map = videoUtils.getVideoMessage(link);
+            Map<String,String> map = piaoHuaVideoSourceHandle.getVideoMessage(link);
             session.setAttribute("process",(int)session.getAttribute("process")+15);
-
             video.setTitle(name);
             video.setDirector(map.get("导演"));
             video.setStars(map.get("主演"));
@@ -60,34 +58,26 @@ public class UploadController {
             videoService.insertVideo(video);
             int id = videoService.selectVideoByName(name).get(0).getId();
             session.setAttribute("process",(int)session.getAttribute("process")+15);
-
-
-            List<String> links = videoUtils.getVideoLinks(link);
+            List<String> links = piaoHuaVideoSourceHandle.getVideoLinks(link);
             session.setAttribute("process",(int)session.getAttribute("process")+15);
-
             for(int i=0;i<links.size();i++){
                 Link l = new Link();
                 l.setLink(links.get(i));
-                l.setPid(id);
+                l.setVideoId(id);
                 l.setSeq(i);
                 l.setName("第"+i+"集");
-                videoService.insertLink(l);
+                linkService.insertLink(l);
             }
-
             session.setAttribute("process",(int)session.getAttribute("process")+25);
-
         } catch (Exception e) {
             session.setAttribute("process","0");
+            log.error("[upload exception] upload exception ======> " ,e);
             return RetResponse.makeErrRsp(e.getMessage());
         }
         return RetResponse.makeOKRsp();
     }
     @PostMapping("/getProcess")
-    public RetResult getProcess(HttpSession session){
+    public RetResult<Object> getProcess(HttpSession session){
         return RetResponse.makeOKRsp(session.getAttribute("process"));
     }
-
-
-
-
 }

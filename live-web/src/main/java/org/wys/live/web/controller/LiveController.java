@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.wys.live.domain.po.*;
-import org.wys.live.hy.utils.HyLiveLink;
 import org.wys.live.hy.utils.HyLiveUtils;
 import org.wys.live.server.service.CategoryService;
+import org.wys.live.web.response.RetCode;
+import org.wys.live.web.response.RetResponse;
+import org.wys.live.web.response.RetResult;
 
 
 import java.io.IOException;
@@ -88,7 +90,7 @@ public class LiveController {
     public String playLive(@PathVariable(value = "roomid")String roomId, Model model) throws Exception{
 
 
-        Object[] ss = HyLiveLink.getLink(roomId);
+        Object[] ss = HyLiveUtils.getLink(roomId);
         model.addAttribute("title", (String)ss[0]);
         String[] links = (String[])ss[1];
         JSONObject[] array = new JSONObject[links.length];

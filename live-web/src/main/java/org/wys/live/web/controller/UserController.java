@@ -1,5 +1,7 @@
 package org.wys.live.web.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,8 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wys.live.domain.po.Collection;
-import org.wys.live.domain.po.RetResponse;
-import org.wys.live.domain.po.RetResult;
+import org.wys.live.server.service.CollectionService;
+import org.wys.live.web.response.RetResponse;
+import org.wys.live.web.response.RetResult;
 import org.wys.live.domain.po.Video;
 import org.wys.live.server.service.UserService;
 
@@ -21,11 +24,12 @@ import java.util.List;
  * 负责跳转和显示信息以及与后台交互
  */
 @Controller
+@AllArgsConstructor
+@Slf4j
 public class UserController {
 
-
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final CollectionService collectionService;
 
     /**
      * 收藏
@@ -41,7 +45,7 @@ public class UserController {
             Collection collection = new Collection();
             collection.setPid(id);
             collection.setVideoId(videoId);
-            userService.insertCollection(collection);
+            collectionService.insertCollection(collection);
             return RetResponse.makeOKRsp();
         }catch (Exception e){
             return RetResponse.makeErrRsp(e.getMessage());
@@ -60,7 +64,7 @@ public class UserController {
 
         Integer id = (Integer)session.getAttribute("id");
 
-        List<Video> videoList = userService.selectCollectionVideoById(id);
+        List<Video> videoList = collectionService.selectCollectionVideoById(id);
 
         if(videoList == null){
             model.addAttribute("videoList","null");
@@ -75,10 +79,10 @@ public class UserController {
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/delete_collection")
     @ResponseBody
-    public RetResult deleteCollection(Integer videoId,HttpSession session) {
+    public RetResult<Boolean> deleteCollection(Integer videoId,HttpSession session) {
         try{
             Integer id = (Integer)session.getAttribute("id");
-            userService.deleteCollectionByIdAndPid(videoId,id);
+            collectionService.selectCollectionByVideoIdAndPid(videoId,id);
             return RetResponse.makeOKRsp();
         }catch (Exception e){
             return RetResponse.makeErrRsp(e.getMessage());

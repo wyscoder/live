@@ -23,4 +23,6 @@ public interface CategoryService {
     List<Categories> selectAllCategory();
 
     void updateCategoriesCount(String name);
+
+    void insertAllCategories();
 }

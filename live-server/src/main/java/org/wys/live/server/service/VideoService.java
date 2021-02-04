@@ -31,25 +31,6 @@ public interface VideoService {
      */
     List<Video> selectVideoByName(String title);
 
-    /**
-     * 向数据库插入链接信息
-     * @param link 链接
-     */
-    void insertLink(Link link);
-
-    /**
-     * 根据链接查询播放链接
-     * @param pid 视频链接
-     * @return 返回的是所有播放链接
-     */
-    List<Link> selectAllLinksByVideo(Integer pid);
-
-    Link selectLinkByVideoAndSeq(Integer pid,Integer seq);
-
-    Integer selectLinkByVideoCount(Integer pid);
-
-    void deleteAllLinksByPid(Integer pid);
-
     void deleteVideoById(Integer id);
 
     Video selectVideoById(Integer id);

@@ -1,5 +1,7 @@
 package org.wys.live.domain.po;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @date 2019/10/31
  * 房间信息
  */
+@Data
 public class Room implements Serializable {
 
     /**
@@ -21,38 +24,5 @@ public class Room implements Serializable {
      * 房间id号
      */
     private String roomId;
-
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public String getAnchorName() {
-        return anchorName;
-    }
-
-    public void setAnchorName(String anchorName) {
-        this.anchorName = anchorName;
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "roomName='" + roomName + '\'' +
-                ", anchorName='" + anchorName + '\'' +
-                ", roomId='" + roomId + '\'' +
-                '}';
-    }
+    
 }

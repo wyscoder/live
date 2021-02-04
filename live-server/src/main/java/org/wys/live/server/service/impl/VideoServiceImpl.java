@@ -1,5 +1,9 @@
 package org.wys.live.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.wys.live.domain.po.Link;
 import org.wys.live.domain.po.Video;
 import org.wys.live.server.dao.VideoMapper;
@@ -15,62 +19,38 @@ import java.util.List;
  * 影视的业务层实现类
  */
 @Service
+@AllArgsConstructor
+@Slf4j
 public class VideoServiceImpl implements VideoService {
 
-    private VideoMapper videoMapper;
-
-    @Autowired
-    public void getVideoMapper(VideoMapper videoMapper) {
-        this.videoMapper = videoMapper;
-    }
+    private final VideoMapper videoMapper;
 
     @Override
     public List<Video> selectAllVideo() {
-        return videoMapper.selectAllVideo();
+        return videoMapper.selectList(null);
     }
 
     @Override
+    @Transactional
     public void insertVideo(Video video) {
-        videoMapper.insertVideo(video);
+        videoMapper.insert(video);
     }
 
     @Override
     public List<Video> selectVideoByName(String title) {
-        return videoMapper.selectVideoByName(title);
+        QueryWrapper<Video> videoQueryWrapper = new QueryWrapper<>();
+        videoQueryWrapper.eq("title",title);
+        return videoMapper.selectList(videoQueryWrapper);
     }
 
     @Override
-    public void insertLink(Link link) {
-        videoMapper.insertLink(link);
-    }
-
-    @Override
-    public List<Link> selectAllLinksByVideo(Integer pid) {
-        return videoMapper.selectAllLinksByVideo(pid);
-    }
-
-    @Override
-    public Link selectLinkByVideoAndSeq(Integer pid, Integer seq) {
-        return videoMapper.selectLinkByVideoAndSeq(pid,seq);
-    }
-
-    @Override
-    public Integer selectLinkByVideoCount(Integer pid) {
-        return videoMapper.selectLinkByVideoCount(pid);
-    }
-
-    @Override
-    public void deleteAllLinksByPid(Integer pid) {
-        videoMapper.deleteAllLinksByPid(pid);
-    }
-
-    @Override
+    @Transactional
     public void deleteVideoById(Integer id) {
-        videoMapper.deleteVideoById(id);
+        videoMapper.deleteById(id);
     }
 
     @Override
     public Video selectVideoById(Integer id) {
-        return videoMapper.selectVideoById(id);
+        return videoMapper.selectById(id);
     }
 }

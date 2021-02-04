@@ -1,4 +1,4 @@
-package org.wys.live.domain.po;
+package org.wys.live.web.response;
 
 /**
  * 定义响应码枚举

@@ -1,91 +1,39 @@
 package org.wys.live.domain.po;
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /**
  * @author wys
  * @date 2019/11/9
  * 影视的实体类
  */
+@Data
+@TableName(value = "video")
 public class Video {
 
+    @TableId(type = IdType.AUTO)
     private Integer id;
+    @TableField(value = "title")
     private String title;
+    @TableField(value = "director")
     private String director;
+    @TableField(value = "stars")
     private String stars;
+    @TableField(value = "categories")
     private String categories;
+    @TableField(value = "country")
     private String country;
+    @TableField(value = "status")
     private String status;
+    @TableField(value = "year")
     private String year;
+    @TableField(value = "content")
     private String content;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getStars() {
-        return stars;
-    }
-
-    public void setStars(String stars) {
-        this.stars = stars;
-    }
-
-    public String getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String categories) {
-        this.categories = categories;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 }

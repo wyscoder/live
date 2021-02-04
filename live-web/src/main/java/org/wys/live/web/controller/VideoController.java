@@ -1,5 +1,7 @@
 package org.wys.live.web.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.wys.live.domain.po.Collection;
 import org.wys.live.domain.po.Link;
 import org.wys.live.domain.po.Video;
+import org.wys.live.server.service.CollectionService;
+import org.wys.live.server.service.LinkService;
 import org.wys.live.server.service.UserService;
 import org.wys.live.server.service.VideoService;
 
@@ -20,12 +24,15 @@ import java.util.List;
  * 这个就是视图映射器
  */
 @Controller
+@AllArgsConstructor
+@Slf4j
 public class VideoController {
 
-    @Autowired
-    private VideoService videoService;
-    @Autowired
-    private UserService userService;
+    private final VideoService videoService;
+    private final UserService userService;
+    private final LinkService linkService;
+    private final CollectionService collectionService;
+
 
     @RequestMapping("/movie")
     public String movie(Model model) {
@@ -43,13 +50,13 @@ public class VideoController {
     public String detail(String title, Model model, HttpSession session) {
 
         Video video = videoService.selectVideoByName(title).get(0);
-        Integer count = videoService.selectLinkByVideoCount(video.getId());
+        Integer count = linkService.selectLinkByVideoCount(video.getId());
         List list = new ArrayList();
         for(int i=1;i<=count;i++){
             list.add(i);
         }
         Integer id = (Integer)session.getAttribute("id");
-        Collection collection = userService.selectCollectionByVideoIdAndPid(video.getId(),id);
+        Collection collection = collectionService.selectCollectionByVideoIdAndPid(video.getId(),id);
         System.out.println(collection);
         if(collection != null){
             model.addAttribute("collection",1);
@@ -79,7 +86,7 @@ public class VideoController {
     public String playVideo(String title,Integer seq,Model model) {
         seq--;
         Integer pid = videoService.selectVideoByName(title).get(0).getId();
-        Link link = videoService.selectLinkByVideoAndSeq(pid,seq);
+        Link link = linkService.selectLinkByVideoAndSeq(pid,seq);
         model.addAttribute("link",link.getLink());
         model.addAttribute("title",title+"第"+(seq+1)+"集");
         return "play_hls";

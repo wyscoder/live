@@ -24,6 +24,10 @@
             <groupId>cn.wys</groupId>
             <artifactId>live-domain</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

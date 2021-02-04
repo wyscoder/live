@@ -1,4 +1,4 @@
-package org.wys.live.domain.po;
+package org.wys.live.web.response;
 
 /**
  * 返回对象实体

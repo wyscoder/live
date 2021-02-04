@@ -1,54 +1,30 @@
 package org.wys.live.domain.po;
 
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /**
  * 账号类
  */
+@Data
+@TableName(value = "user")
 public class User {
 
+    @TableId(type = IdType.AUTO)
     private Integer id;
+    @TableField(value = "username")
     private String username;
+    @TableField(value = "password")
     private String password;
+    @TableField(value = "name")
     private String name;
+    @TableField(value = "mail")
     private String mail;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+    @TableField(fill = FieldFill.INSERT,value = "createTime")
+    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.UPDATE, value = "updateTime")
+    private LocalDateTime updateTime;
 }
