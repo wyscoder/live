@@ -12,21 +12,17 @@ import java.util.List;
  * @author wys
  * @date 2021/2/2 23:43
  */
-@SpringBootTest
 @AllArgsConstructor
 public class TestHy {
 
 
     @Test
-     public void getLink() {
+    public void getLink() {
         List<Categories> hyLiveCategories = HyLiveUtils.getHyLiveCategories();
         System.out.println(hyLiveCategories);
-
     }
 
     void getCategories() {
 
     }
-
-
 }

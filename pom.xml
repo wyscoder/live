@@ -8,9 +8,9 @@
         <module>live-web</module>
         <module>live-domain</module>
         <module>live-commons</module>
-        <module>live-hy</module>
         <module>live-video</module>
         <module>live-test</module>
+        <module>live-live</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,7 +18,7 @@
         <version>2.2.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.wys</groupId>
+    <groupId>org.wys.live</groupId>
     <artifactId>live</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>live</name>
@@ -36,6 +36,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <guava.version>30.1-jre</guava.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <google.version>3.4.1</google.version>
+        <hutool.version>5.7.4</hutool.version>
     </properties>
 
     <dependencyManagement>
@@ -88,37 +90,37 @@
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.wys</groupId>
+                <groupId>org.wys.live</groupId>
                 <artifactId>live-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.wys</groupId>
+                <groupId>org.wys.live</groupId>
                 <artifactId>live-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.wys</groupId>
-                <artifactId>live-hy</artifactId>
+                <groupId>org.wys.live</groupId>
+                <artifactId>live-live</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.wys</groupId>
+                <groupId>org.wys.live</groupId>
                 <artifactId>live-video</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.wys</groupId>
+                <groupId>org.wys.live</groupId>
                 <artifactId>live-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.wys</groupId>
+                <groupId>org.wys.live</groupId>
                 <artifactId>live-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.wys</groupId>
+                <groupId>org.wys.live</groupId>
                 <artifactId>live-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -151,6 +153,18 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${google.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 </project>

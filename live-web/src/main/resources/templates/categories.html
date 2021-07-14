@@ -8,12 +8,12 @@
     <script th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/popper.min.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/category.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/category.css}"/>
     <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/category.js}" th:inline="javascript"></script>
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="#"/>
 </head>
 <body>
 <!--导航条-->
@@ -30,7 +30,8 @@
         </li>
     </ul>
     <div class="btn-group">
-        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
             <a class="dropdown-item" th:href="@{/user}">我的收藏</a>
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
@@ -48,10 +49,11 @@
         </tr>
         <tr th:each="room:${page.rooms}">
             <td class="text-center" th:text="${room.roomName}" style="background-color: #F8F8FF;"></td>
-            <td class="text-center"th:text="${room.roomId}" style="background-color: #F8F8FF;"></td>
+            <td class="text-center" th:text="${room.roomId}" style="background-color: #F8F8FF;"></td>
             <td class="text-center" th:text="${room.anchorName}" style="background-color: #F8F8FF;"></td>
             <!--  点击后打开一个新窗口         -->
-            <td class="text-center" style="background-color: #F8F8FF;"><a th:href="@{'/live/'+${room.roomId}}" target="_blank">播放</a></td>
+            <td class="text-center" style="background-color: #F8F8FF;"><a th:href="@{'/live/'+${room.roomId}}"
+                                                                          target="_blank">播放</a></td>
         </tr>
     </span>
 
@@ -66,9 +68,16 @@
 <!--分页-->
 <div class="pagination pagination-right" id="page">
     <button type="button" class="btn btn-info" id="a" th:onclick="categoryList([[${1}]],[[${myCategory}]])">首页</button>
-    <button type="button" class="btn btn-info" id="b" th:onclick="categoryList([[${page.thePage-1>1?page.thePage-1:1}]],[[${myCategory}]])">上一页</button>
-    <button type="button" class="btn btn-info" id="c" th:onclick="categoryList([[${page.thePage+1>page.totalPage?page.totalPage:page.thePage+1}]],[[${myCategory}]])">下一页</button>
-    <button type="button" class="btn btn-info" id="d" th:onclick="categoryList([[${page.totalPage}]],[[${myCategory}]])">尾页</button>
+    <button type="button" class="btn btn-info" id="b"
+            th:onclick="categoryList([[${page.thePage-1>1?page.thePage-1:1}]],[[${myCategory}]])">上一页
+    </button>
+    <button type="button" class="btn btn-info" id="c"
+            th:onclick="categoryList([[${page.thePage+1>page.totalPage?page.totalPage:page.thePage+1}]],[[${myCategory}]])">
+        下一页
+    </button>
+    <button type="button" class="btn btn-info" id="d"
+            th:onclick="categoryList([[${page.totalPage}]],[[${myCategory}]])">尾页
+    </button>
 </div>
 
 </body>

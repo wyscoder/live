@@ -23,7 +23,7 @@ public class User {
     private String name;
     @TableField(value = "mail")
     private String mail;
-    @TableField(fill = FieldFill.INSERT,value = "createTime")
+    @TableField(fill = FieldFill.INSERT, value = "createTime")
     private LocalDateTime createTime;
     @TableField(fill = FieldFill.UPDATE, value = "updateTime")
     private LocalDateTime updateTime;

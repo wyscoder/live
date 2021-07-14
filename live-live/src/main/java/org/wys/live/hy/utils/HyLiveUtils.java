@@ -1,9 +1,11 @@
 package org.wys.live.hy.utils;
 
 
+import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -33,15 +35,18 @@ import java.util.stream.Collectors;
  * @date 2019/10/31
  * 虎牙工具类
  */
+@Slf4j
 public class HyLiveUtils {
 
     private final static String HYHEAD = "http://www.huya.com/cache.php?m=LiveList&do=getLiveListByPage&gameId=";
     private final static String HYTAIL = "&tagAll=0&page=";
     private final static String LIVE_HEAD = "https://www.huya.com/";
     private final static String HY_LIVE_CATEGORIES = "https://www.huya.com/g";
-    public final static Map<String,String> head = new HashMap<>();
+    public final static Map<String, String> head = new HashMap<>();
+    private final static String configPattern = "hyPlayerConfig=(\\{.*?\\})";
+    private final static String time = "&t=103";
 
-    static{
+    static {
         head.put("accept", HeaderConstant.ACCEPT);
         head.put("accept-encoding", HeaderConstant.ACCEPT_ENCODING);
         head.put("accept-language", HeaderConstant.ACCEPT_LANGUAGE);
@@ -50,17 +55,18 @@ public class HyLiveUtils {
         head.put("sec-fetch-mode", HeaderConstant.SEC_FETCH_MODE);
         head.put("sec-fetch-site", HeaderConstant.SEC_FETCH_SITE);
         head.put("sec-fetch-user", HeaderConstant.SEC_FETCH_USER);
-        head.put("upgrade-insecure-requests",HeaderConstant.UPGRADE_INSECURE_REQUESTS);
-        head.put("user-agent",HeaderConstant.USER_AGENT);
+        head.put("upgrade-insecure-requests", HeaderConstant.UPGRADE_INSECURE_REQUESTS);
+        head.put("user-agent", HeaderConstant.USER_AGENT);
     }
 
     /**
      * 获取当前直播分类所有主播房间信息
+     *
      * @param id 这个就是直播的类别
      */
     public static Page getAllAnchor(Integer id, Integer pageId) throws IOException {
         Page page = new Page();
-        Document doc = Jsoup.connect(HYHEAD+id+HYTAIL).headers(head).ignoreHttpErrors(true).ignoreContentType(true).timeout(5000).get();
+        Document doc = Jsoup.connect(HYHEAD + id + HYTAIL).headers(head).ignoreHttpErrors(true).ignoreContentType(true).timeout(5000).get();
         Integer totalPage = Integer.valueOf(JSONObject.parseObject(JSONObject.parseObject(doc.text()).getString("data")).getString("totalPage"));
         Integer totalCount = Integer.valueOf(JSONObject.parseObject(JSONObject.parseObject(doc.text()).getString("data")).getString("totalCount"));
         List<Room> list = new ArrayList<>();
@@ -69,9 +75,9 @@ public class HyLiveUtils {
          * nick   主播名称
          * profileRoom 房间id
          */
-        Document document = Jsoup.connect(HYHEAD+String.valueOf(id)+HYTAIL+String.valueOf(pageId)).headers(head).ignoreHttpErrors(true).ignoreContentType(true).timeout(5000).get();
+        Document document = Jsoup.connect(HYHEAD + String.valueOf(id) + HYTAIL + String.valueOf(pageId)).headers(head).ignoreHttpErrors(true).ignoreContentType(true).timeout(5000).get();
         JSONArray array = JSONArray.parseArray(JSON.parseObject(JSON.parseObject(document.text()).getString("data")).getString("datas"));
-        for(int j=0;j<array.size();j++) {
+        for (int j = 0; j < array.size(); j++) {
             JSONObject jsonObject = array.getJSONObject(j);
             Room room = new Room();
             room.setRoomName(jsonObject.getString("introduction"));
@@ -91,50 +97,57 @@ public class HyLiveUtils {
      */
     public static Object[] getLink(String roomId) throws Exception {
         String title = "";
-        Document document = Jsoup.connect(LIVE_HEAD+roomId).headers(HyLiveUtils.head).ignoreContentType(true).ignoreHttpErrors(true).timeout(5000).get();
+        Document document = Jsoup.connect(LIVE_HEAD + roomId).headers(HyLiveUtils.head).ignoreContentType(true).ignoreHttpErrors(true).timeout(5000).get();
         title = document.title();
-        Elements elements = document.getElementsByAttribute("data-fixed");
-        String p = "\"data\":\\[\\{(.*)\\]\\}";
-        Pattern pattern = Pattern.compile(p);
-        String s1 = "";
-        for(Element element:elements) {
-            String str = element.toString();
-            Matcher matcher = pattern.matcher(str);
-            while(matcher.find()) {
-                s1 = matcher.group();
+        Elements elements = document.getElementsByAttribute("data-fixed");;
+        for(Element element : elements) {
+//            log.info("element====>{}", element);
+            String replace = element.html().replaceAll("\n","").replaceAll(" ","").replaceAll("\r","");
+//            log.info("html====>{}", element.html());
+//            log.info("replace str ====> {}", replace);
+            Matcher matcher = Pattern.compile(configPattern).matcher(replace);
+            int count = 0;
+            if(matcher.find()){
+                String s = matcher.group(1);
+                JSONObject decodeJson = JSONObject.parseObject(Base64.decodeStr(JSONObject.parseObject(s).getString("stream")));
+                JSONArray jsonArray = decodeJson.getJSONArray("data").getJSONObject(0).getJSONArray("gameStreamInfoList");
+                log.info("object ====> {}",jsonArray);
+                String[] links = new String[jsonArray.size()];
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    String sHlsUrl = jsonArray.getJSONObject(i).getString("sHlsUrl") + "/";
+                    String sStreamName = jsonArray.getJSONObject(i).getString("sStreamName") + ".m3u8";
+                    String sFlvAntiCode = jsonArray.getJSONObject(i).getString("sHlsAntiCode").replaceAll("&amp;","&");
+                    String finalUrl = sHlsUrl+sStreamName+"?"+sFlvAntiCode+time;
+                    links[i] = (finalUrl);
+                    log.info("links ======> {}", links[i]);
+                }
+                return new Object[]{title, links};
             }
         }
-        JSONObject jsonObject = JSONObject.parseObject(s1.substring(8,s1.length()));
-        JSONArray jsonArray = JSONArray.parseArray(jsonObject.getString("gameStreamInfoList"));
-        String[] links = new String[jsonArray.size()];
-        for(int i=0;i<jsonArray.size();i++) {
-            String sHlsUrl = jsonArray.getJSONObject(i).getString("sHlsUrl")+"/";
-            String sStreamName = jsonArray.getJSONObject(i).getString("sStreamName")+".m3u8";
-            links[i] = (sHlsUrl+sStreamName);
-        }
-        return new Object[]{title,links};
+        return new Object[]{};
     }
 
     /**
      * 获取虎牙所有分类
+     *
      * @return
      */
     public static List<Categories> getHyLiveCategories() {
-            Document document = null;
-            try {
-                document = Jsoup.connect(HY_LIVE_CATEGORIES).ignoreHttpErrors(true).ignoreContentType(true).headers(head).get();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(Objects.nonNull(document)) {
-              return document.getElementsByClass("g-gameCard-item").stream().map(item->{
-                    Categories categories = new Categories();
-                    categories.setCount(0);
-                    categories.setUid(Integer.valueOf(item.attr("data-gid")));
-                    categories.setName(item.attr("title"));
-                    return categories;
-                }).collect(Collectors.toList());
-            }
-            return null;
+        Document document = null;
+        try {
+            document = Jsoup.connect(HY_LIVE_CATEGORIES).ignoreHttpErrors(true).ignoreContentType(true).headers(head).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (Objects.nonNull(document)) {
+            return document.getElementsByClass("g-gameCard-item").stream().map(item -> {
+                Categories categories = new Categories();
+                categories.setCount(0);
+                categories.setUid(Integer.valueOf(item.attr("data-gid")));
+                categories.setName(item.attr("title"));
+                return categories;
+            }).collect(Collectors.toList());
+        }
+        return null;
     }
 }

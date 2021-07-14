@@ -39,7 +39,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<Video> selectVideoByName(String title) {
         QueryWrapper<Video> videoQueryWrapper = new QueryWrapper<>();
-        videoQueryWrapper.eq("title",title);
+        videoQueryWrapper.eq("title", title);
         return videoMapper.selectList(videoQueryWrapper);
     }
 

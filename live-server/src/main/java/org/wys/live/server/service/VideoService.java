@@ -14,18 +14,21 @@ public interface VideoService {
 
     /**
      * 查询所有影视
+     *
      * @return 返回的是查找的所有影视
      */
     List<Video> selectAllVideo();
 
     /**
      * 向数据库插入影视信息
+     *
      * @param video 影视
      */
     void insertVideo(Video video);
 
     /**
      * 根据姓名查询影视
+     *
      * @param title 姓名
      * @return 查询所有匹配的姓名
      */

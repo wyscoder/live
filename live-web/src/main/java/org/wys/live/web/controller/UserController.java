@@ -33,21 +33,22 @@ public class UserController {
 
     /**
      * 收藏
+     *
      * @return 返回的是是否收藏成功的信息
      */
     @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     @PostMapping("/collection")
-    public RetResult setCollection(Integer videoId, HttpSession session){
+    public RetResult setCollection(Integer videoId, HttpSession session) {
 
-        try{
-            Integer id = (Integer)session.getAttribute("id");
+        try {
+            Integer id = (Integer) session.getAttribute("id");
             Collection collection = new Collection();
             collection.setPid(id);
             collection.setVideoId(videoId);
             collectionService.insertCollection(collection);
             return RetResponse.makeOKRsp();
-        }catch (Exception e){
+        } catch (Exception e) {
             return RetResponse.makeErrRsp(e.getMessage());
         }
 
@@ -56,20 +57,21 @@ public class UserController {
 
     /**
      * 展示所有的收藏信息
+     *
      * @param model 传值
      * @return 返回的是跳转的页面
      */
     @RequestMapping("/user")
-    public String userMsg(Model model,HttpSession session){
+    public String userMsg(Model model, HttpSession session) {
 
-        Integer id = (Integer)session.getAttribute("id");
+        Integer id = (Integer) session.getAttribute("id");
 
         List<Video> videoList = collectionService.selectCollectionVideoById(id);
 
-        if(videoList == null){
-            model.addAttribute("videoList","null");
-        }else{
-            model.addAttribute("videoList",videoList);
+        if (videoList == null) {
+            model.addAttribute("videoList", "null");
+        } else {
+            model.addAttribute("videoList", videoList);
         }
 
         return "user_msg";
@@ -79,12 +81,12 @@ public class UserController {
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/delete_collection")
     @ResponseBody
-    public RetResult<Boolean> deleteCollection(Integer videoId,HttpSession session) {
-        try{
-            Integer id = (Integer)session.getAttribute("id");
-            collectionService.selectCollectionByVideoIdAndPid(videoId,id);
+    public RetResult<Boolean> deleteCollection(Integer videoId, HttpSession session) {
+        try {
+            Integer id = (Integer) session.getAttribute("id");
+            collectionService.selectCollectionByVideoIdAndPid(videoId, id);
             return RetResponse.makeOKRsp();
-        }catch (Exception e){
+        } catch (Exception e) {
             return RetResponse.makeErrRsp(e.getMessage());
         }
     }

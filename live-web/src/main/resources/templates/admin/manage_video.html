@@ -7,17 +7,18 @@
     <script th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/popper.min.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/manage.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/manage.css}"/>
     <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="#"/>
 </head>
 <body>
 
 <!--导航条-->
 <nav class="nav nav-pills">
     <div class="btn-group">
-        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
         </div>
@@ -32,6 +33,7 @@
     function left() {
         window.location.href = "/admin/upload";
     }
+
     function right() {
         window.location.href = "/admin/delete";
     }

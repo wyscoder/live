@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author wys
  * @date 2019/10/31
- *  分类的映射接口 相当于持久层
+ * 分类的映射接口 相当于持久层
  */
 @Mapper
 @Repository

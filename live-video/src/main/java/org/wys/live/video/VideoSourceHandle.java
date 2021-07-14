@@ -1,5 +1,6 @@
 package org.wys.live.video;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import java.util.Map;
  * 抽象一个视频工具类
  */
 public abstract class VideoSourceHandle {
+
+    protected final Map<String, String> headers = new HashMap<String, String>();
 
     public abstract String getSearchTitleLink(String message) throws Exception;
 

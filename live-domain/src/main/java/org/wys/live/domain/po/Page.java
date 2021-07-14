@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 分页属性类
+ *
  * @author wys
  * @date 2019/11/1
  */

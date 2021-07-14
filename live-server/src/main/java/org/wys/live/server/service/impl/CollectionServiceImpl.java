@@ -36,7 +36,7 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public List<Collection> selectCollectionByUserId(Integer id) {
         QueryWrapper<Collection> collectionQueryWrapper = new QueryWrapper<>();
-        collectionQueryWrapper.eq("pid",id);
+        collectionQueryWrapper.eq("pid", id);
         return collectionMapper.selectList(collectionQueryWrapper);
     }
 
@@ -50,7 +50,7 @@ public class CollectionServiceImpl implements CollectionService {
     public List<Video> selectCollectionVideoById(Integer id) {
         List<Collection> collections = selectCollectionByUserId(id);
         List<Video> videoList = new ArrayList<>();
-        for(Collection c : collections){
+        for (Collection c : collections) {
             QueryWrapper<Video> videoQueryWrapper = new QueryWrapper<>();
             videoQueryWrapper.eq("id", c.getVideoId());
             videoList.add(videoMapper.selectOne(videoQueryWrapper));

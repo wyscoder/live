@@ -14,5 +14,4 @@ import org.wys.live.domain.po.Collection;
 public interface CollectionMapper extends BaseMapper<Collection> {
 
 
-
 }

@@ -12,6 +12,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     /**
      * 进入Controller之前
+     *
      * @param request
      * @param response
      * @param handler
@@ -33,6 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     /**
      * 处理请求完成视图渲染之前
+     *
      * @param request
      * @param response
      * @param handler
@@ -45,6 +47,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     /**
      * 处理请求完成渲染之后
+     *
      * @param request
      * @param response
      * @param handler

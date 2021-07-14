@@ -26,36 +26,37 @@ public class LoginController {
 
     private final UserService userService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public RetResult<Boolean> Login(String username, String password, HttpSession session){
-        if(username.equals("admin") &&password.equals("admin")){
-            session.setAttribute("name","admin");
-            return RetResponse.makeRsp(-1,"管理员登录");
+    public RetResult<Boolean> Login(String username, String password, HttpSession session) {
+        if (username.equals("admin") && password.equals("admin")) {
+            session.setAttribute("name", "admin");
+            return RetResponse.makeRsp(-1, "管理员登录");
         }
-        System.out.println(username+" :"+password);
+        System.out.println(username + " :" + password);
         String msg = "";
         User user = userService.selectUserByUserName(username);
-        if(user == null){
+        if (user == null) {
             msg = "用户不存在！";
-        }else{
-            if(user.getPassword().equals(password)){
-                session.setAttribute("name",user.getName());
-                session.setAttribute("id",user.getId());
+        } else {
+            if (user.getPassword().equals(password)) {
+                session.setAttribute("name", user.getName());
+                session.setAttribute("id", user.getId());
                 return RetResponse.makeOKRsp();
-            }else if(!user.getPassword().equals(password)){
+            } else if (!user.getPassword().equals(password)) {
                 msg = "密码错误！";
             }
         }
         return RetResponse.makeErrRsp(msg);
     }
+
     @RequestMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.removeAttribute("name");
         session.removeAttribute("id");
         return "login";

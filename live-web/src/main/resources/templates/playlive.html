@@ -7,15 +7,15 @@
     <script th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/popper.min.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}"/>
     <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
     <script type="text/javascript" th:src="@{https://cdn.bootcss.com/hls.js/8.0.0-beta.3/hls.min.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/Dplayer.min.js}"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/play.css}" />
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/Dplayer.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/play.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/Dplayer.min.css}"/>
     <script th:src="@{https://cdnjs.loli.net/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js}"></script>
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="#"/>
 </head>
 <body>
 <!--导航条-->
@@ -32,40 +32,41 @@
         </li>
     </ul>
     <div class="btn-group">
-        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
             <a class="dropdown-item" th:href="@{/user}">我的收藏</a>
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
         </div>
     </div>
 </nav>
-    <div class="container">
-        <div class="alert alert-success alert-dismissable fade show">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>如果视频不能播放请更换线路，每次更换线路时请刷新页面！</strong>
-        </div>
+<div class="container">
+    <div class="alert alert-success alert-dismissable fade show">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>如果视频不能播放请更换线路，每次更换线路时请刷新页面！</strong>
     </div>
-    <div id="dplayer">
-        <script th:inline="javascript">
-            /*var links = [[${liveLink}]];
-            var qualities = [];
-            var data = {};
-            for(var i=0;i<links.length;i++) {
-                data["url"] = links[i];
-                data["type"] = "hls";
-                qualities[i] = data;
-            }*/
-            const dp = new DPlayer({
-                container: document.getElementById('dplayer'),
-                autoplay: true,
-                live: true,
-                video: {
-                    quality: [[${liveLink}]],
-                    defaultQuality: 1
-                }
-            });
-        </script>
-    </div>
+</div>
+<div id="dplayer">
+    <script th:inline="javascript">
+        /*var links = [[${liveLink}]];
+        var qualities = [];
+        var data = {};
+        for(var i=0;i<links.length;i++) {
+            data["url"] = links[i];
+            data["type"] = "hls";
+            qualities[i] = data;
+        }*/
+        const dp = new DPlayer({
+            container: document.getElementById('dplayer'),
+            autoplay: true,
+            live: true,
+            video: {
+                quality: [[${liveLink}]],
+                defaultQuality: 1
+            }
+        });
+    </script>
+</div>
 
 </body>
 </html>

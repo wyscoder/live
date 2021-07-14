@@ -24,5 +24,5 @@ public class Room implements Serializable {
      * 房间id号
      */
     private String roomId;
-    
+
 }

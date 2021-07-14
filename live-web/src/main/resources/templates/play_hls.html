@@ -9,15 +9,15 @@
     <script th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/popper.min.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/Dplayer.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/Dplayer.min.css}"/>
     <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/Dplayer.min.js}"></script>
     <script type="text/javascript" th:src="@{https://cdn.bootcss.com/hls.js/8.0.0-beta.3/hls.min.js}"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/play.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/play.css}"/>
     <script th:src="@{https://cdnjs.loli.net/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js}"></script>
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="#"/>
 </head>
 <body>
 <!--导航条-->
@@ -34,15 +34,14 @@
         </li>
     </ul>
     <div class="btn-group">
-        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
             <a class="dropdown-item" th:href="@{/user}">我的收藏</a>
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
         </div>
     </div>
 </nav>
-
-
 
 
 <!--通用的播放页面-->
@@ -62,7 +61,7 @@
             autoplay: true,
             video: {
                 url: [[${link}]],
-                type:'hls'
+                type: 'hls'
             },
             danmaku: {     //弹幕功能，不需要可以删除
                 id: id,     //弹幕库的ID，每个视频的弹幕库不能一样，可以把url作为id

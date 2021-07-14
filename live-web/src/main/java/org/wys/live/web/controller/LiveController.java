@@ -29,6 +29,7 @@ public class LiveController {
 
     /**
      * 给CategoryService注入值
+     *
      * @param categoryService
      */
     @Autowired
@@ -37,10 +38,10 @@ public class LiveController {
     }
 
     @RequestMapping("/live")
-    public String jumpLiveCategories(Model model){
+    public String jumpLiveCategories(Model model) {
 
         List<Categories> categoriesList = categoryService.selectAllCategory();
-        model.addAttribute("categoriesList",categoriesList);
+        model.addAttribute("categoriesList", categoriesList);
 
         return "live";
     }
@@ -48,18 +49,19 @@ public class LiveController {
 
     /**
      * 解析收到的图片类别，然后检索数据库
+     *
      * @param myCategories
      * @return
      */
     @RequestMapping(value = "/categories/{category}", method = RequestMethod.GET)
-    public String categories(@PathVariable(value = "category") String myCategories, Model model) throws Exception{
+    public String categories(@PathVariable(value = "category") String myCategories, Model model) throws Exception {
         Integer id = categoryService.selectIdByName(myCategories);
 
         categoryService.updateCategoriesCount(myCategories);
-        try{
+        try {
             model.addAttribute("myCategory", myCategories);
             model.addAttribute("page", HyLiveUtils.getAllAnchor(id, 1));
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -68,6 +70,7 @@ public class LiveController {
 
     /**
      * 这个就是使用ajax处理分页信息的类
+     *
      * @param myCategories
      * @param pageId
      * @param model
@@ -78,30 +81,30 @@ public class LiveController {
     public RetResult<Page> listcategoriesPage(@PathVariable(value = "category") String myCategories, @RequestParam(value = "pageid") Integer pageId, Model model) {
         Integer id = categoryService.selectIdByName(myCategories);
 
-        try{
+        try {
             return RetResponse.makeOKRsp(HyLiveUtils.getAllAnchor(id, pageId));
-        }catch (IOException e){
+        } catch (IOException e) {
             return RetResponse.makeRsp(RetCode.FAIL.code, "FAIL");
         }
 
     }
 
     @RequestMapping(value = "/live/{roomid}", method = RequestMethod.GET)
-    public String playLive(@PathVariable(value = "roomid")String roomId, Model model) throws Exception{
+    public String playLive(@PathVariable(value = "roomid") String roomId, Model model) throws Exception {
 
 
         Object[] ss = HyLiveUtils.getLink(roomId);
-        model.addAttribute("title", (String)ss[0]);
-        String[] links = (String[])ss[1];
+        model.addAttribute("title", (String) ss[0]);
+        String[] links = (String[]) ss[1];
         JSONObject[] array = new JSONObject[links.length];
-        for(int i=0;i<links.length;i++) {
+        for (int i = 0; i < links.length; i++) {
             JSONObject obj = new JSONObject();
-            obj.put("url",links[i]);
-            obj.put("name","路线"+i);
+            obj.put("url", links[i]);
+            obj.put("name", "路线" + i);
             //System.out.println(obj);
             array[i] = obj;
         }
-        model.addAttribute("liveLink",array);
+        model.addAttribute("liveLink", array);
 
         return "playlive";
     }

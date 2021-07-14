@@ -32,21 +32,21 @@ public class UploadController {
 
     @Transactional(rollbackFor = Exception.class)
     @GetMapping("/upload_video")
-    public RetResult<Integer> uploadVideo(String name, HttpSession session){
+    public RetResult<Integer> uploadVideo(String name, HttpSession session) {
         try {
             Video video = new Video();
             List<Video> v = videoService.selectVideoByName(name);
             //如果视频有问题就把视频删了
-            if(v!=null&&v.size()>0&&linkService.selectAllLinksByVideoId(v.get(0).getId()).size()<=0){
+            if (v != null && v.size() > 0 && linkService.selectAllLinksByVideoId(v.get(0).getId()).size() <= 0) {
                 videoService.deleteVideoById(v.get(0).getId());
             }
-            session.setAttribute("process",0);
+            session.setAttribute("process", 0);
             String link = piaoHuaVideoSourceHandle.getSearchTitleLink(name);
-            session.setAttribute("process",(int)session.getAttribute("process")+15);
-            piaoHuaVideoSourceHandle.DownLoadVideoImageByLink(link,name);
-            session.setAttribute("process",(int)session.getAttribute("process")+15);
-            Map<String,String> map = piaoHuaVideoSourceHandle.getVideoMessage(link);
-            session.setAttribute("process",(int)session.getAttribute("process")+15);
+            session.setAttribute("process", (int) session.getAttribute("process") + 15);
+            piaoHuaVideoSourceHandle.DownLoadVideoImageByLink(link, name);
+            session.setAttribute("process", (int) session.getAttribute("process") + 15);
+            Map<String, String> map = piaoHuaVideoSourceHandle.getVideoMessage(link);
+            session.setAttribute("process", (int) session.getAttribute("process") + 15);
             video.setTitle(name);
             video.setDirector(map.get("导演"));
             video.setStars(map.get("主演"));
@@ -57,27 +57,28 @@ public class UploadController {
             video.setYear(map.get("上映日期"));
             videoService.insertVideo(video);
             int id = videoService.selectVideoByName(name).get(0).getId();
-            session.setAttribute("process",(int)session.getAttribute("process")+15);
+            session.setAttribute("process", (int) session.getAttribute("process") + 15);
             List<String> links = piaoHuaVideoSourceHandle.getVideoLinks(link);
-            session.setAttribute("process",(int)session.getAttribute("process")+15);
-            for(int i=0;i<links.size();i++){
+            session.setAttribute("process", (int) session.getAttribute("process") + 15);
+            for (int i = 0; i < links.size(); i++) {
                 Link l = new Link();
                 l.setLink(links.get(i));
                 l.setVideoId(id);
                 l.setSeq(i);
-                l.setName("第"+i+"集");
+                l.setName("第" + i + "集");
                 linkService.insertLink(l);
             }
-            session.setAttribute("process",(int)session.getAttribute("process")+25);
+            session.setAttribute("process", (int) session.getAttribute("process") + 25);
         } catch (Exception e) {
-            session.setAttribute("process","0");
-            log.error("[upload exception] upload exception ======> " ,e);
+            session.setAttribute("process", "0");
+            log.error("[upload exception] upload exception ======> ", e);
             return RetResponse.makeErrRsp(e.getMessage());
         }
         return RetResponse.makeOKRsp();
     }
+
     @PostMapping("/getProcess")
-    public RetResult<Object> getProcess(HttpSession session){
+    public RetResult<Object> getProcess(HttpSession session) {
         return RetResponse.makeOKRsp(session.getAttribute("process"));
     }
 }

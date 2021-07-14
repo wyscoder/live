@@ -1,7 +1,6 @@
 package org.wys.live.server.service;
 
 
-
 import org.wys.live.domain.po.Categories;
 
 import java.util.List;
@@ -15,6 +14,7 @@ public interface CategoryService {
 
     /**
      * 根据姓名查找id
+     *
      * @param name
      * @return
      */

@@ -23,18 +23,18 @@ public class RegisterController {
 
     private final UserService userService;
 
-    @RequestMapping(value = "/register",method = RequestMethod.GET)
-    public String register(){
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
         return "register";
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public RetResult<Boolean> Register(String username, String mail, String password, String name){
+    public RetResult<Boolean> Register(String username, String mail, String password, String name) {
 
         String msg = "";
         User uu = userService.selectUserByUserName(username);
-        if(uu!=null){
+        if (uu != null) {
             msg = "用户已存在！";
             return RetResponse.makeErrRsp(msg);
         }

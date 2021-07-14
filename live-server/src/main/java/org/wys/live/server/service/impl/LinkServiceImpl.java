@@ -31,22 +31,22 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public List<Link> selectAllLinksByVideoId(Integer videoId) {
         QueryWrapper<Link> linkQueryWrapper = new QueryWrapper<>();
-        linkQueryWrapper.eq("video_id",videoId);
+        linkQueryWrapper.eq("video_id", videoId);
         return linkMapper.selectList(linkQueryWrapper);
     }
 
     @Override
     public Link selectLinkByVideoAndSeq(Integer videoId, Integer seq) {
         QueryWrapper<Link> linkQueryWrapper = new QueryWrapper<>();
-        linkQueryWrapper.eq("video_id",videoId);
-        linkQueryWrapper.eq("seq",seq);
+        linkQueryWrapper.eq("video_id", videoId);
+        linkQueryWrapper.eq("seq", seq);
         return linkMapper.selectOne(linkQueryWrapper);
     }
 
     @Override
     public Integer selectLinkByVideoCount(Integer videoId) {
         QueryWrapper<Link> linkQueryWrapper = new QueryWrapper<>();
-        linkQueryWrapper.eq("video_id",videoId);
+        linkQueryWrapper.eq("video_id", videoId);
         return linkMapper.selectCount(linkQueryWrapper);
     }
 
@@ -54,7 +54,7 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public void deleteAllLinksByVideoId(Integer videoId) {
         QueryWrapper<Link> linkQueryWrapper = new QueryWrapper<>();
-        linkQueryWrapper.eq("video_id",videoId);
+        linkQueryWrapper.eq("video_id", videoId);
         linkMapper.delete(linkQueryWrapper);
     }
 

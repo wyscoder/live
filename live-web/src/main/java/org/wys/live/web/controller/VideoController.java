@@ -38,10 +38,10 @@ public class VideoController {
     public String movie(Model model) {
 
         List<Video> videos = videoService.selectAllVideo();
-        model.addAttribute("videos",videos);
-        String path = System.getProperty("user.dir")+"\\video\\";
+        model.addAttribute("videos", videos);
+        String path = System.getProperty("user.dir") + "\\video\\";
         System.out.println(videos);
-        model.addAttribute("path",path);
+        model.addAttribute("path", path);
 
         return "movie";
     }
@@ -52,68 +52,70 @@ public class VideoController {
         Video video = videoService.selectVideoByName(title).get(0);
         Integer count = linkService.selectLinkByVideoCount(video.getId());
         List list = new ArrayList();
-        for(int i=1;i<=count;i++){
+        for (int i = 1; i <= count; i++) {
             list.add(i);
         }
-        Integer id = (Integer)session.getAttribute("id");
-        Collection collection = collectionService.selectCollectionByVideoIdAndPid(video.getId(),id);
+        Integer id = (Integer) session.getAttribute("id");
+        Collection collection = collectionService.selectCollectionByVideoIdAndPid(video.getId(), id);
         System.out.println(collection);
-        if(collection != null){
-            model.addAttribute("collection",1);
-        }else{
-            model.addAttribute("collection",0);
+        if (collection != null) {
+            model.addAttribute("collection", 1);
+        } else {
+            model.addAttribute("collection", 0);
         }
-        model.addAttribute("video_id",video.getId());
-        model.addAttribute("title",video.getTitle());
-        model.addAttribute("director",video.getDirector());
-        model.addAttribute("stars",video.getStars());
-        model.addAttribute("categories",video.getCategories());
-        model.addAttribute("country",video.getCountry());
-        model.addAttribute("status",video.getStatus());
-        model.addAttribute("year",video.getYear());
-        model.addAttribute("content",video.getContent());
-        model.addAttribute("list",list);
+        model.addAttribute("video_id", video.getId());
+        model.addAttribute("title", video.getTitle());
+        model.addAttribute("director", video.getDirector());
+        model.addAttribute("stars", video.getStars());
+        model.addAttribute("categories", video.getCategories());
+        model.addAttribute("country", video.getCountry());
+        model.addAttribute("status", video.getStatus());
+        model.addAttribute("year", video.getYear());
+        model.addAttribute("content", video.getContent());
+        model.addAttribute("list", list);
         return "detail";
     }
 
     /**
      * 请求到集数和视频名称
+     *
      * @param title 视频名称
-     * @param seq 序列id
+     * @param seq   序列id
      * @return 返回的跳转的链接
      */
     @RequestMapping("/play_video")
-    public String playVideo(String title,Integer seq,Model model) {
+    public String playVideo(String title, Integer seq, Model model) {
         seq--;
         Integer pid = videoService.selectVideoByName(title).get(0).getId();
-        Link link = linkService.selectLinkByVideoAndSeq(pid,seq);
-        model.addAttribute("link",link.getLink());
-        model.addAttribute("title",title+"第"+(seq+1)+"集");
+        Link link = linkService.selectLinkByVideoAndSeq(pid, seq);
+        model.addAttribute("link", link.getLink());
+        model.addAttribute("title", title + "第" + (seq + 1) + "集");
         return "play_hls";
     }
 
     /**
      * 播放链接
+     *
      * @param link 链接
      * @return 跳转的链接
      */
     @RequestMapping("/playLink")
-    public String playLink(String link,Model model) {
-        model.addAttribute("link",link);
-        model.addAttribute("title","正在播放");
+    public String playLink(String link, Model model) {
+        model.addAttribute("link", link);
+        model.addAttribute("title", "正在播放");
         System.out.println(link);
         String suffix = "";
         //判断一下有没有问号
-        if(link.contains("?")){
-            suffix = link.substring(link.indexOf(".")+1,link.indexOf("?")-1);
-        }else{
-            suffix = link.substring(link.indexOf(".")+1,link.length());
+        if (link.contains("?")) {
+            suffix = link.substring(link.indexOf(".") + 1, link.indexOf("?") - 1);
+        } else {
+            suffix = link.substring(link.indexOf(".") + 1, link.length());
         }
-        if(suffix.equals("flv")){
+        if (suffix.equals("flv")) {
             return "play_flv";
-        }else if(suffix.equals("m3u8")){
+        } else if (suffix.equals("m3u8")) {
             return "play_hls";
-        }else{
+        } else {
             return "play_all";
         }
     }

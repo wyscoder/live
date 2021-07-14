@@ -1,21 +1,25 @@
-.leftPageMsg{
+.leftPageMsg {
     position: relative;
     bottom: -60px;
     font-size: 18px;
 }
-#a{
+
+#a {
     position: relative;
     right: 100px;
 }
-#d{
+
+#d {
     position: relative;
-    right:0px;
+    right: 0px;
 }
-#b{
-    position:relative;
+
+#b {
+    position: relative;
     right: 60px;
 }
-#c{
-    position:relative;
+
+#c {
+    position: relative;
     right: 40px;
 }

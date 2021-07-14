@@ -3,23 +3,29 @@ body {
     margin: 0 auto;
     background-image: url("/static/images/yinghuashu.jpg");
 }
-image{
+
+image {
     width: 171px;
     height: 180px;
 }
-#play_link{
+
+#play_link {
     margin-top: 300px;
 }
-#play_btn{
+
+#play_btn {
     line-height: 0.5;
 }
-#leftPageMsg{
+
+#leftPageMsg {
     bottom: -80px;
-    margin-left:810px;
+    margin-left: 810px;
 }
-#page{
-    margin-left:875px;
+
+#page {
+    margin-left: 875px;
 }
-#delete_btn{
+
+#delete_btn {
     width: 85%
 }

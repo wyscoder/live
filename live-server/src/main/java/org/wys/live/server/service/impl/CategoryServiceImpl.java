@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Integer selectIdByName(String name) {
         QueryWrapper<Categories> categoriesQueryWrapper = new QueryWrapper<>();
-        categoriesQueryWrapper.eq("name",name);
+        categoriesQueryWrapper.eq("name", name);
         return categoryMapper.selectOne(categoriesQueryWrapper).getUid();
     }
 
@@ -43,9 +43,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public void updateCategoriesCount(String name) {
         QueryWrapper<Categories> categoriesQueryWrapper = new QueryWrapper<>();
-        categoriesQueryWrapper.eq("name",name);
+        categoriesQueryWrapper.eq("name", name);
         Categories categories = categoryMapper.selectOne(categoriesQueryWrapper);
-        categories.setCount(categories.getCount()+1);
+        categories.setCount(categories.getCount() + 1);
         categoryMapper.updateById(categories);
     }
 
@@ -53,8 +53,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public void insertAllCategories() {
         List<Categories> hyLiveCategories = HyLiveUtils.getHyLiveCategories();
-        if(!CollectionUtils.isEmpty(hyLiveCategories)) {
-            hyLiveCategories.forEach(item->{
+        if (!CollectionUtils.isEmpty(hyLiveCategories)) {
+            hyLiveCategories.forEach(item -> {
                 categoryMapper.insert(item);
                 log.info("[categories] insert categories success =========> {}", item);
             });

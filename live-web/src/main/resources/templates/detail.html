@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <!-- saved from url=(0038)http://piaohua520.com/show/125720.html -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <meta charset="utf-8">
-    <title th:text="${title}"></title>
-    <link rel="stylesheet" th:href="@{/static/css/bootstrap.4.4.1.css}" type="text/css">
-    <script th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></script>
-    <script th:src="@{/static/js/popper.min.js}" type="text/javascript"></script>
-    <script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}" />
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}" />
-    <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
-    <link rel="stylesheet" rev="stylesheet" type="text/css" th:href="@{/static/css/bootadd.css}">
-    <link rel="stylesheet" rev="stylesheet" type="text/css" th:href="@{/static/css/css2.css}">
-    <link rel="shortcut icon" href="#" />
+<meta charset="utf-8">
+<title th:text="${title}"></title>
+<link rel="stylesheet" th:href="@{/static/css/bootstrap.4.4.1.css}" type="text/css">
+<script th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></script>
+<script th:src="@{/static/js/popper.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/js/bootstrap.4.4.1.min.js}" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+<link type="text/css" rel="stylesheet" th:href="@{/static/css/index.css}"/>
+<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/nav.js}"></script>
+<link rel="stylesheet" rev="stylesheet" type="text/css" th:href="@{/static/css/bootadd.css}">
+<link rel="stylesheet" rev="stylesheet" type="text/css" th:href="@{/static/css/css2.css}">
+<link rel="shortcut icon" href="#"/>
 </head>
 <body>
 
@@ -31,7 +31,8 @@
         </li>
     </ul>
     <div class="btn-group">
-        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" th:text="${#request.getSession().getAttribute('name')}" id="msg"></button>
         <div class="dropdown-menu">
             <a class="dropdown-item" th:href="@{/user}">我的收藏</a>
             <a class="dropdown-item" th:href="@{/logout}">退出登录</a>
@@ -55,10 +56,15 @@
                             <img th:src="@{'/static/images/video/'+${title}+'.jpg'}" th:alt="${title}" width="100%">
                         </a>
                         <div class="online-button">
-                            <a target="_blank" class="btn btn-success btn-block" th:href="@{'/play_video?title='+${title}+'&seq=1'}">立即播放</a>
+                            <a target="_blank" class="btn btn-success btn-block"
+                               th:href="@{'/play_video?title='+${title}+'&seq=1'}">立即播放</a>
 
-                            <button target="_blank" type="button" class="btn btn-secondary btn-block" th:if="${collection eq 1}" disabled>已收藏</button>
-                            <button target="_blank" type="button" class="btn btn-danger btn-block" th:if="${collection eq 0}" th:onclick="collectionVideo([[${video_id}]])">收藏</button>
+                            <button target="_blank" type="button" class="btn btn-secondary btn-block"
+                                    th:if="${collection eq 1}" disabled>已收藏
+                            </button>
+                            <button target="_blank" type="button" class="btn btn-danger btn-block"
+                                    th:if="${collection eq 0}" th:onclick="collectionVideo([[${video_id}]])">收藏
+                            </button>
 
                         </div>
                         <div style="clear:both;"></div>
@@ -72,86 +78,88 @@
                         <notempty name="info.years"></notempty>
 
 
-                        <table class="table table-striped table-condensed table-bordered" style="margin-bottom:10px;font-size:12px;">
-                                <tbody>
-                                    <tr>
-                                        <td class="span2"><span class="info-label">导演</span></td>
-                                        <td th:text="${director}"></td>
-                                    </tr>
+                        <table class="table table-striped table-condensed table-bordered"
+                               style="margin-bottom:10px;font-size:12px;">
+                            <tbody>
+                            <tr>
+                                <td class="span2"><span class="info-label">导演</span></td>
+                                <td th:text="${director}"></td>
+                            </tr>
 
-                                    <tr>
-                                        <td class="span2"><span class="info-label">主演</span></td>
-                                        <td id="casts" style="position:relative;" th:text="${stars}"></td>
-                                    </tr>
+                            <tr>
+                                <td class="span2"><span class="info-label">主演</span></td>
+                                <td id="casts" style="position:relative;" th:text="${stars}"></td>
+                            </tr>
 
-                                    <tr>
-                                        <td class="span2"><span class="info-label">类型</span></td>
-                                        <td th:text="${categories}"></td>
-                                    </tr>
+                            <tr>
+                                <td class="span2"><span class="info-label">类型</span></td>
+                                <td th:text="${categories}"></td>
+                            </tr>
 
-                                    <tr>
-                                        <td class="span2"><span class="info-label">制片国家</span></td>
-                                        <td th:text="${country}"></td>
-                                    </tr>
+                            <tr>
+                                <td class="span2"><span class="info-label">制片国家</span></td>
+                                <td th:text="${country}"></td>
+                            </tr>
 
-                                    <tr>
-                                        <td class="span2"><span class="info-label">更新状态</span></td>
-                                        <td th:text="${status}"></td>
-                                    </tr>
+                            <tr>
+                                <td class="span2"><span class="info-label">更新状态</span></td>
+                                <td th:text="${status}"></td>
+                            </tr>
 
-                                    <tr>
-                                        <td class="span2"><span class="info-label">上映日期</span></td>
-                                        <td th:text="${year}"></td>
-                                    </tr>
+                            <tr>
+                                <td class="span2"><span class="info-label">上映日期</span></td>
+                                <td th:text="${year}"></td>
+                            </tr>
 
-                                    <tr>
-                                        <td class="span2"><span class="info-label">更新日期</span></td>
-                                        <td th:text="${year}"></td>
-                                    </tr>
+                            <tr>
+                                <td class="span2"><span class="info-label">更新日期</span></td>
+                                <td th:text="${year}"></td>
+                            </tr>
                             </tbody>
                         </table>
-            <p style="color:#777;">
-                <strong>剧情介绍：</strong>
-            </p>
-            <p class="summary" th:text="${content}"></p>
-        </div>
-    </div>
+                        <p style="color:#777;">
+                            <strong>剧情介绍：</strong>
+                        </p>
+                        <p class="summary" th:text="${content}"></p>
+                    </div>
+                </div>
 
-    <div class="col-md-12">
-        <div class="panel panel-default resource-list">
-            <div class="panel-heading"><strong th:text="${title}"></strong></div>
-            <ul class="dslist-group">
-                <li class="dslist-group-item" th:each="it,cit:${list}">
-                    <a th:href="@{'/play_video?title='+${title}+'&seq='+${it}}" th:text="'第'+${it}+'集'" target="_blank"></a>
-                </li>
-            </ul>
-            <div class="panel-footer resource-help" style="clear: both;"></div>
-        </div>
-    </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default resource-list">
+                        <div class="panel-heading"><strong th:text="${title}"></strong></div>
+                        <ul class="dslist-group">
+                            <li class="dslist-group-item" th:each="it,cit:${list}">
+                                <a th:href="@{'/play_video?title='+${title}+'&seq='+${it}}" th:text="'第'+${it}+'集'"
+                                   target="_blank"></a>
+                            </li>
+                        </ul>
+                        <div class="panel-footer resource-help" style="clear: both;"></div>
+                    </div>
+                </div>
 
-    </div>
+            </div>
         </div>
     </div>
 </div>
 <script>
     function collectionVideo(id) {
         $.ajax({
-            url:"/collection",
-            type:"post",
-            dataType:"json",
-            data:{videoId:id},
-            success:function (data) {
-                if(data.code == "200"){
+            url: "/collection",
+            type: "post",
+            dataType: "json",
+            data: {videoId: id},
+            success: function (data) {
+                if (data.code == "200") {
                     alert("收藏成功！");
                     window.location.reload();
-                }else{
+                } else {
                     alert("收藏失败！");
                 }
             }
         })
     }
-    
-    
+
+
 </script>
 </body>
 </html>

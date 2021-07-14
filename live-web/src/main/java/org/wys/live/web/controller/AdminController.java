@@ -32,25 +32,28 @@ public class AdminController {
 
 
     @RequestMapping("/upload")
-    public String upload_video(){
+    public String upload_video() {
         return "admin/upload_video";
     }
+
     @RequestMapping("/manage")
-    public String manage(){
+    public String manage() {
         return "admin/manage_video";
     }
+
     @RequestMapping("/delete")
     public String delete_video(Model model) {
 
         List<Video> videos = videoService.selectAllVideo();
-        model.addAttribute("videos",videos);
+        model.addAttribute("videos", videos);
         return "admin/delete_video";
     }
+
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
     @RequestMapping("/delete_video")
-    public RetResult<Boolean> delete(Integer videoId){
-        try{
+    public RetResult<Boolean> delete(Integer videoId) {
+        try {
             String name = videoService.selectVideoById(videoId).getTitle();
             linkService.deleteAllLinksByVideoId(videoId);
             videoService.deleteVideoById(videoId);
@@ -58,14 +61,14 @@ public class AdminController {
 
             String path = "";
             String os = System.getProperty("os.name");
-            if(os.toLowerCase().startsWith("win")){
-                path = System.getProperty("user.dir")+"/src/main/resources/static/images/video/"+name+".jpg";
-            }else{
-                path = System.getProperty("user.dir")+"/video/"+name+".jpg";
+            if (os.toLowerCase().startsWith("win")) {
+                path = System.getProperty("user.dir") + "/src/main/resources/static/images/video/" + name + ".jpg";
+            } else {
+                path = System.getProperty("user.dir") + "/video/" + name + ".jpg";
             }
             File file = new File(path);
             return RetResponse.makeOKRsp();
-        }catch (Exception e){
+        } catch (Exception e) {
             return RetResponse.makeErrRsp(e.getMessage());
         }
     }
